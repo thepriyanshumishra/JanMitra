@@ -20,17 +20,29 @@ export function Sidebar({ className }: { className?: string }) {
     const pathname = usePathname();
 
     return (
-        <aside className={cn("hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 z-40 p-4", className)}>
-            <GlassPanel className="h-full flex flex-col bg-white/40 dark:bg-slate-900/40 border-white/60 dark:border-white/10 backdrop-blur-xl">
+        <aside className={cn("hidden md:flex flex-col w-64 h-auto fixed left-6 top-1/2 -translate-y-1/2 z-40", className)}>
+            {/* Floating Dock Container */}
+            <div className="flex flex-col bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-[2rem] shadow-2xl shadow-black/10 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-black/20">
+
+                {/* Traffic Lights (Mac Style) */}
+                <div className="px-6 pt-5 pb-2 flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500/80 shadow-sm" />
+                    <div className="w-3 h-3 rounded-full bg-amber-500/80 shadow-sm" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/80 shadow-sm" />
+                </div>
+
                 {/* Logo Area */}
-                <div className="p-6 border-b border-white/20 dark:border-white/5">
+                <div className="px-6 py-3">
                     <Link href="/">
                         <Logo />
                     </Link>
                 </div>
 
                 {/* Navigation */}
-                <nav className="flex-1 p-4 space-y-2">
+                <nav className="flex-1 px-3 py-2 space-y-1">
+                    <div className="px-3 py-2 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                        Apps
+                    </div>
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
                         const Icon = item.icon;
@@ -39,14 +51,14 @@ export function Sidebar({ className }: { className?: string }) {
                             <Link key={item.href} href={item.href}>
                                 <div
                                     className={cn(
-                                        "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group",
+                                        "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group text-sm font-medium",
                                         isActive
-                                            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
-                                            : "hover:bg-white/40 dark:hover:bg-white/5 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                                            ? "bg-blue-500 text-white shadow-lg shadow-blue-500/30 scale-105"
+                                            : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white hover:scale-105"
                                     )}
                                 >
-                                    <Icon className={cn("w-5 h-5", isActive ? "text-white" : "text-slate-500 dark:text-slate-400 group-hover:text-slate-800 dark:group-hover:text-white")} />
-                                    <span className="font-medium">{item.name}</span>
+                                    <Icon className={cn("w-4 h-4", isActive ? "text-white" : "text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-white")} />
+                                    <span>{item.name}</span>
                                 </div>
                             </Link>
                         );
@@ -54,24 +66,19 @@ export function Sidebar({ className }: { className?: string }) {
                 </nav>
 
                 {/* Footer / User Profile */}
-                <div className="p-4 border-t border-white/20 dark:border-white/5 mt-auto">
-                    <div className="flex items-center gap-3 p-3 rounded-xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/5">
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg">
+                <div className="p-3 mt-2 bg-white/30 dark:bg-black/10 backdrop-blur-sm border-t border-white/10">
+                    <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/40 dark:hover:bg-white/5 transition-colors cursor-pointer group">
+                        <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-inner ring-2 ring-white/20 group-hover:ring-blue-400 transition-all">
                             JD
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-bold text-slate-900 dark:text-white truncate">John Doe</p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 truncate">Citizen Lvl 4</p>
+                            <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">John Doe</p>
+                            <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 truncate">Citizen Lvl 4</p>
                         </div>
-                        <button className="p-2 rounded-lg hover:bg-red-500/10 text-slate-400 hover:text-red-500 transition-colors" title="Sign Out">
-                            <LogOut className="w-4 h-4" />
-                        </button>
-                    </div>
-                    <div className="mt-4 flex justify-center">
                         <ThemeToggle />
                     </div>
                 </div>
-            </GlassPanel>
+            </div>
         </aside>
     );
 }

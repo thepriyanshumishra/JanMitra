@@ -3,8 +3,8 @@
 [![Vercel App](https://img.shields.io/badge/Vercel-Deployed-black?style=for-the-badge&logo=vercel)](https://janmitraportal.vercel.app/)
 [![PWA Ready](https://img.shields.io/badge/PWA-Mobile%20Ready-purple?style=for-the-badge&logo=pwa)](https://janmitraportal.vercel.app/)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Powered by Groq](https://img.shields.io/badge/AI-Groq%20Llama%203-f55036?style=for-the-badge)](https://groq.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 ![Jan-Mitra Homepage](public/screenshots/homepage.png)
 
@@ -19,58 +19,58 @@
 
 Jan-Mitra solves this with **"Understand First, Act Smartly"** logic.
 
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=thepriyanshumishra/JanMitra&type=Date)](https://star-history.com/#thepriyanshumishra/JanMitra&Date)
-
 ---
 
-## 🚀 Features
+## 🌟 Key Features
 
-### 🧠 The Intelligence Layer (AI)
-Unlike traditional portals that are just "digital mailboxes," Jan-Mitra understands the problem before a human ever sees it.
--   **Auto-Categorization**: Instantly tags issues (e.g., "Sanitation", "Infrastructure").
--   **Sentiment Analysis**: Detects citizen frustration levels to gauge urgency.
--   **Priority Scoring**: Uses NLP to flag critical keywords (e.g., "flooding", "sparking wire").
+### 🤖 AI Grievance Agent (Jan-Mitra AI)
+Forget boring forms. Chat with our intelligent agent to file complaints.
+-   **Context-Aware**: Understands natural language (e.g., "There's a huge pothole near my house").
+-   **Smart Interrogation**: Asks follow-up questions if details are missing (e.g., "Is it causing a traffic jam?").
+-   **Auto-Categorization**: Instantly tags issues (Sanitation, Roads, Electricity).
+-   **Priority Scoring**: Assigns urgency based on keywords (e.g., "Sparking wire" = High Priority).
 
-### ⛓️ The Accountability Layer (Blockchain)
-Trust is built on transparency.
--   **Immutable Ledger**: Every status change is hashed and "stored" on the Polygon network.
--   **Smart SLA**: Auto-escalation timers ensure no grievance is ignored.
--   **Public Audit**: Citizens can verify the journey of their complaint.
+### 📍 Geo-Spatial Intelligence
+Precise location data for faster resolution.
+-   **One-Tap GPS**: Fetches your exact coordinates and converts them to a readable address.
+-   **Smart Location Manager**: Choose between **GPS**, **Manual Entry**, or **Skip**.
+-   **Map Verification**: Confirm your location on a card before sending.
+-   **Contextual Requests**: If you say "Near the park", the AI asks "Which park?" and triggers the location picker.
 
-### 💎 The Experience Layer (GlassOS)
-Government software shouldn't look like it's from 1995.
--   **Glassmorphism UI**: A modern, frosted-glass aesthetic.
--   **Command Center**: A Bento-grid dashboard for high-density information.
--   **PWA Support**: Installable on mobile devices with a native app feel.
+### 🇮🇳 India-Localized Context
+Built specifically for the Indian civic ecosystem.
+-   **Civic Body Recognition**: Identifies and assigns departments like **MCD**, **BBMP**, **PWD**, **BESCOM**, **Jal Board**.
+-   **Citizen Charter SLAs**: Estimates resolution time based on Indian standards (e.g., 24 hours for power outages).
+-   **Local Terminology**: Understands "Ward", "Zone", "Naka", and other local terms.
+
+### 🏆 Transparent Resolution Flow
+Know exactly what happens after you click "Submit".
+-   **Detailed Success Modal**: Shows the assigned **Department**, **Priority Level**, and **SLA**.
+-   **Challenge Priority**: Don't agree with the "Medium" priority? Click **"Challenge"** to explain why it's urgent, and the AI will re-evaluate.
 
 ---
 
 ## 📸 Screenshots
 
-| **Homepage** | **Mobile View (PWA)** |
+| **AI Chat Interface** | **Location Manager** |
 |:---:|:---:|
-| ![Homepage](public/screenshots/homepage.png) | ![Mobile View](public/screenshots/mobile-view.png) |
+| ![Chat](public/screenshots/chat-interface.png) | ![Location](public/screenshots/location-manager.png) |
 
-| **Command Center** | **About Page** |
+| **Success Modal** | **Command Center** |
 |:---:|:---:|
-| ![Dashboard](public/screenshots/command-center.png) | ![About](public/screenshots/about.png) |
-
-| **Settings** | **Login** |
-|:---:|:---:|
-| ![Settings](public/screenshots/settings.png) | ![Login](public/screenshots/login.png) |
+| ![Success](public/screenshots/success-modal.png) | ![Dashboard](public/screenshots/command-center.png) |
 
 ---
 
 ## 🛠️ Tech Stack
 
 -   **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+-   **AI Engine**: [Groq SDK](https://groq.com/) (Llama 3.3 70B)
+-   **Maps/Geocoding**: [OpenStreetMap](https://www.openstreetmap.org/) (Nominatim API)
 -   **Styling**: [Tailwind CSS](https://tailwindcss.com/) + Custom Glass Utilities
+-   **Animations**: [Framer Motion](https://www.framer.com/motion/)
 -   **Icons**: [Lucide React](https://lucide.dev/)
--   **Charts**: [Recharts](https://recharts.org/)
 -   **State**: React Hooks + Context API
--   **PWA**: Next.js Metadata + Manifest
 
 ---
 
@@ -79,6 +79,7 @@ Government software shouldn't look like it's from 1995.
 ### Prerequisites
 -   Node.js 18+
 -   npm / yarn / pnpm
+-   **Groq API Key**: Get one from [console.groq.com](https://console.groq.com/)
 
 ### Installation
 
@@ -93,22 +94,30 @@ Government software shouldn't look like it's from 1995.
     npm install
     ```
 
-3.  **Run the development server**
+3.  **Set up Environment Variables**
+    Create a `.env.local` file:
+    ```env
+    GROQ_API_KEY=your_api_key_here
+    ```
+
+4.  **Run the development server**
     ```bash
     npm run dev
     ```
 
-4.  **Open your browser**
+5.  **Open your browser**
     Navigate to [http://localhost:3000](http://localhost:3000)
 
 ---
 
 ## 🔮 Future Roadmap
 
--   [x] **Mobile App**: PWA Support for "Add to Home Screen".
+-   [x] **AI Chat Interface**: Conversational grievance filing.
+-   [x] **Geo-Spatial Integration**: GPS and Reverse Geocoding.
+-   [x] **Localization**: India-specific departments and SLAs.
 -   [ ] **Real Backend**: Integrate Supabase for persistent data.
 -   [ ] **Smart Contracts**: Deploy actual Solidity contracts to Polygon Amoy Testnet.
--   [ ] **AI Vision**: Image recognition for pothole detection.
+-   [ ] **Multilingual Support**: Hindi, Kannada, Tamil support for the AI.
 
 ---
 
