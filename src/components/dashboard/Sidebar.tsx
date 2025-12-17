@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { LayoutDashboard, PenTool, BarChart3, Settings, LogOut, ShieldCheck } from "lucide-react";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/ui/Logo";
 
 const navItems = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
@@ -22,13 +23,8 @@ export function Sidebar({ className }: { className?: string }) {
             <GlassPanel className="h-full flex flex-col bg-white/40 dark:bg-slate-900/40 border-white/60 dark:border-white/10 backdrop-blur-xl">
                 {/* Logo Area */}
                 <div className="p-6 border-b border-white/20 dark:border-white/5">
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center animate-pulse">
-                            <span className="text-white font-bold text-xs">JM</span>
-                        </div>
-                        <span className="font-bold text-lg text-slate-800 dark:text-white tracking-tight">
-                            JAN-MITRA
-                        </span>
+                    <Link href="/">
+                        <Logo />
                     </Link>
                 </div>
 

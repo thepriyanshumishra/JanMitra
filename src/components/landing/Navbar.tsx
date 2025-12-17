@@ -3,19 +3,15 @@
 import Link from "next/link";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { ArrowRight } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
 
 export function Navbar() {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-center">
             <GlassPanel className="w-full max-w-5xl px-6 py-3 flex items-center justify-between bg-white/40 dark:bg-slate-900/40 border-white/60 dark:border-white/10 backdrop-blur-xl shadow-lg">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 group">
-                    <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <span className="text-white font-bold text-xs">JM</span>
-                    </div>
-                    <span className="font-bold text-lg text-slate-800 dark:text-white tracking-tight">
-                        JAN-MITRA
-                    </span>
+                <Link href="/" className="group">
+                    <Logo className="group-hover:scale-105 transition-transform" />
                 </Link>
 
                 {/* Desktop Nav */}
