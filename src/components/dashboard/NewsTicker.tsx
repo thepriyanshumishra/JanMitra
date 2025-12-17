@@ -14,24 +14,34 @@ const ALERTS = [
 export function NewsTicker() {
     return (
         <div className="w-full h-10 bg-red-500/10 border-y border-red-500/20 flex items-center overflow-hidden relative backdrop-blur-sm">
-            <div className="absolute left-0 h-full px-4 bg-red-500/20 flex items-center z-10 border-r border-red-500/30">
+            {/* Static Badge */}
+            <div className="absolute left-0 h-full px-4 bg-red-950/80 backdrop-blur-md flex items-center z-20 border-r border-red-500/30 shadow-lg shadow-red-900/20">
                 <span className="text-xs font-bold text-red-500 uppercase tracking-wider flex items-center gap-2">
                     <AlertCircle className="w-3 h-3 animate-pulse" />
                     Live Alerts
                 </span>
             </div>
 
-            <motion.div
-                className="flex items-center gap-12 whitespace-nowrap pl-32"
-                animate={{ x: ["0%", "-100%"] }}
-                transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
-            >
-                {[...ALERTS, ...ALERTS].map((alert, i) => (
-                    <span key={i} className="text-sm font-medium text-red-400/90">
-                        {alert}
-                    </span>
-                ))}
-            </motion.div>
+            {/* Scrolling Track */}
+            <div className="flex items-center overflow-hidden w-full mask-linear-fade">
+                <motion.div
+                    className="flex items-center gap-16 whitespace-nowrap flex-nowrap pl-[140px]" // Initial padding to start after badge
+                    animate={{ x: ["0%", "-50%"] }}
+                    transition={{
+                        repeat: Infinity,
+                        duration: 40,
+                        ease: "linear"
+                    }}
+                >
+                    {/* Duplicate content 4 times to ensure smooth loop on wide screens */}
+                    {[...ALERTS, ...ALERTS, ...ALERTS, ...ALERTS].map((alert, i) => (
+                        <span key={i} className="text-sm font-medium text-red-400/90 inline-flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-red-500/50" />
+                            {alert}
+                        </span>
+                    ))}
+                </motion.div>
+            </div>
         </div>
     );
 }
