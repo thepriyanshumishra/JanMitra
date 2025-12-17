@@ -1,10 +1,19 @@
 # 🏛️ JAN-MITRA: Governance with Intelligence
 
+[![Vercel App](https://img.shields.io/badge/Vercel-Deployed-black?style=for-the-badge&logo=vercel)](https://janmitraportal.vercel.app/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
 ![Jan-Mitra Command Center](public/screenshots/command-center.png)
 
 > **"Portals collect complaints. JAN-MITRA resolves them."**
 
 **Jan-Mitra** (People's Friend) is a next-generation civic grievance redressal platform designed to bridge the gap between citizens and administration. It leverages **Browser-Side AI** for instant prioritization and **Blockchain Simulation** for immutable accountability.
+
+## 🌟 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=thepriyanshumishra/JanMitra&type=Date)](https://star-history.com/#thepriyanshumishra/JanMitra&Date)
 
 ---
 

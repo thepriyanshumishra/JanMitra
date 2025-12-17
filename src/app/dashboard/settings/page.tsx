@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { GlassPanel } from "@/components/ui/GlassPanel";
-import { Bell, Moon, Shield, Globe, Smartphone, Save } from "lucide-react";
+import { Bell, Moon, Shield, Globe, Smartphone, Save, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useThemeTransition, TransitionType } from "@/hooks/use-theme-transition";
 
 export default function SettingsPage() {
     const [notifications, setNotifications] = useState(true);
     const [darkMode, setDarkMode] = useState(true);
     const [publicProfile, setPublicProfile] = useState(false);
+    const { transitionType, setTransitionType } = useThemeTransition();
 
     return (
         <div className="space-y-8">
@@ -33,12 +35,30 @@ export default function SettingsPage() {
                         checked={darkMode}
                         onChange={setDarkMode}
                     />
-                    <Toggle
-                        label="Reduced Motion"
-                        desc="Minimize animations for accessibility."
-                        checked={false}
-                        onChange={() => { }}
-                    />
+
+                    {/* Theme Transition Selector */}
+                    <div className="space-y-3 pt-4 border-t border-slate-200 dark:border-slate-700">
+                        <div className="flex items-center gap-2">
+                            <Sparkles className="w-4 h-4 text-amber-500" />
+                            <label className="text-sm font-medium text-slate-900 dark:text-white">Theme Transition</label>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                            {(["circular", "wipe", "vertical-wipe", "fade"] as TransitionType[]).map((type) => (
+                                <button
+                                    key={type}
+                                    onClick={() => setTransitionType(type)}
+                                    className={cn(
+                                        "px-3 py-2 text-xs font-medium rounded-lg border transition-all capitalize",
+                                        transitionType === type
+                                            ? "bg-blue-600 text-white border-blue-600"
+                                            : "bg-white/50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-800"
+                                    )}
+                                >
+                                    {type.replace("-", " ")}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </GlassPanel>
 
                 {/* Notifications */}

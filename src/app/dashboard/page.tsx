@@ -27,7 +27,7 @@ export default function DashboardPage() {
     return (
         <div className="space-y-6">
             {/* Ticker Tape */}
-            <div className="rounded-xl overflow-hidden shadow-2xl shadow-red-900/20">
+            <div className="sticky top-0 z-30 rounded-xl overflow-hidden shadow-2xl shadow-red-900/20 bg-white/5 backdrop-blur-md">
                 <NewsTicker />
             </div>
 

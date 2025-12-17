@@ -4,9 +4,11 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { GlassPanel } from "./GlassPanel";
+import { useThemeTransition } from "@/hooks/use-theme-transition";
 
 export function ThemeToggle() {
     const { setTheme, resolvedTheme } = useTheme();
+    const { transitionType } = useThemeTransition();
     const [mounted, setMounted] = React.useState(false);
 
     React.useEffect(() => {
@@ -17,11 +19,11 @@ export function ThemeToggle() {
         return null;
     }
 
-    const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const toggleTheme = async (e: React.MouseEvent<HTMLButtonElement>) => {
         const newTheme = resolvedTheme === "dark" ? "light" : "dark";
 
-        // @ts-ignore - View Transitions API is not yet in all TS definitions
-        if (!document.startViewTransition) {
+        // @ts-ignore
+        if (!document.startViewTransition || transitionType === "none") {
             setTheme(newTheme);
             return;
         }
@@ -31,28 +33,52 @@ export function ThemeToggle() {
             setTheme(newTheme);
         });
 
-        transition.ready.then(() => {
-            const x = e.clientX;
-            const y = e.clientY;
-            const endRadius = Math.hypot(
-                Math.max(x, innerWidth - x),
-                Math.max(y, innerHeight - y)
-            );
+        await transition.ready;
 
-            document.documentElement.animate(
-                {
-                    clipPath: [
-                        `circle(0px at ${x}px ${y}px)`,
-                        `circle(${endRadius}px at ${x}px ${y}px)`,
-                    ],
-                },
-                {
-                    duration: 750,
-                    easing: "cubic-bezier(0.22, 1, 0.36, 1)", // Custom "Premium" Ease-Out
-                    pseudoElement: "::view-transition-new(root)",
-                }
-            );
-        });
+        const x = e.clientX;
+        const y = e.clientY;
+        const endRadius = Math.hypot(
+            Math.max(x, innerWidth - x),
+            Math.max(y, innerHeight - y)
+        );
+
+        const keyframes: Keyframe[] = [];
+        const options: KeyframeAnimationOptions = {
+            duration: 750,
+            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            pseudoElement: "::view-transition-new(root)",
+        };
+
+        switch (transitionType) {
+            case "circular":
+                keyframes.push(
+                    { clipPath: `circle(0px at ${x}px ${y}px)` },
+                    { clipPath: `circle(${endRadius}px at ${x}px ${y}px)` }
+                );
+                break;
+            case "wipe":
+                keyframes.push(
+                    { clipPath: "inset(0 100% 0 0)" },
+                    { clipPath: "inset(0 0 0 0)" }
+                );
+                break;
+            case "vertical-wipe":
+                keyframes.push(
+                    { clipPath: "inset(100% 0 0 0)" },
+                    { clipPath: "inset(0 0 0 0)" }
+                );
+                break;
+            case "fade":
+                keyframes.push(
+                    { opacity: 0 },
+                    { opacity: 1 }
+                );
+                break;
+        }
+
+        if (keyframes.length > 0) {
+            document.documentElement.animate(keyframes, options);
+        }
     };
 
     return (
