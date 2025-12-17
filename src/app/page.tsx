@@ -2,13 +2,15 @@ import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
 import Link from "next/link";
+import { Navbar } from "@/components/landing/Navbar";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen flex flex-col items-center justify-center p-6 overflow-hidden">
+      <Navbar />
       <AnimatedBackground />
 
-      <div className="z-10 w-full max-w-5xl space-y-8 text-center">
+      <div className="z-10 w-full max-w-5xl space-y-8 text-center pt-20">
         {/* Hero Badge */}
         <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/40 dark:bg-white/10 border border-white/60 dark:border-white/20 backdrop-blur-md text-sm text-blue-700 dark:text-blue-200 shadow-sm animate-fade-in-up">
           <span className="flex h-2 w-2 rounded-full bg-blue-500 dark:bg-blue-400 mr-2 animate-pulse" />

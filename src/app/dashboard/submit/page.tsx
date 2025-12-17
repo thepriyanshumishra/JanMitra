@@ -5,6 +5,7 @@ import { GlassPanel } from "@/components/ui/GlassPanel";
 import { analyzeGrievance, AIAnalysisResult } from "@/lib/ai-engine";
 import { Loader2, Send, AlertTriangle, CheckCircle2, BrainCircuit } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 export default function SubmitGrievancePage() {
     const [complaint, setComplaint] = useState("");
@@ -54,6 +55,13 @@ export default function SubmitGrievancePage() {
                         </span>
                         <button
                             disabled={!analysis || isAnalyzing}
+                            onClick={() => {
+                                toast.success("Grievance Submitted Successfully", {
+                                    description: "Your report ID is #GRV-" + Math.floor(Math.random() * 10000),
+                                });
+                                setComplaint("");
+                                setAnalysis(null);
+                            }}
                             className="flex items-center gap-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-all shadow-lg shadow-blue-500/20"
                         >
                             <Send className="w-4 h-4" />

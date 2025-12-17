@@ -5,6 +5,7 @@ import { GlassPanel } from "@/components/ui/GlassPanel";
 import { Bell, Moon, Shield, Globe, Smartphone, Save, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useThemeTransition, TransitionType } from "@/hooks/use-theme-transition";
+import { toast } from "sonner";
 
 export default function SettingsPage() {
     const [notifications, setNotifications] = useState(true);
@@ -135,7 +136,10 @@ export default function SettingsPage() {
             </div>
 
             <div className="flex justify-end">
-                <button className="flex items-center gap-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors shadow-lg shadow-blue-500/20">
+                <button
+                    onClick={() => toast.success("Settings Saved", { description: "Your preferences have been updated." })}
+                    className="flex items-center gap-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors shadow-lg shadow-blue-500/20"
+                >
                     <Save className="w-4 h-4" />
                     Save Changes
                 </button>

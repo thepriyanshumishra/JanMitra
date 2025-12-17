@@ -4,6 +4,7 @@ import Link from "next/link";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import { ArrowLeft, ArrowRight, Lock, Mail } from "lucide-react";
+import { toast } from "sonner";
 
 export default function LoginPage() {
     return (
@@ -50,7 +51,10 @@ export default function LoginPage() {
                     </div>
 
                     <Link href="/dashboard" className="block">
-                        <button className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 group">
+                        <button
+                            onClick={() => toast.success("Welcome back, Citizen!", { description: "You have successfully logged in." })}
+                            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 group"
+                        >
                             Sign In
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </button>

@@ -1,4 +1,5 @@
 import { Sidebar } from "@/components/dashboard/Sidebar";
+import { MobileNav } from "@/components/dashboard/MobileNav";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 
 export default function DashboardLayout({
@@ -9,6 +10,7 @@ export default function DashboardLayout({
     return (
         <div className="min-h-screen flex">
             <AnimatedBackground />
+            <MobileNav />
 
             {/* Sidebar */}
             <Sidebar />

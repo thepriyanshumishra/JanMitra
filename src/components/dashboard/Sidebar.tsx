@@ -14,11 +14,11 @@ const navItems = [
     { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
-export function Sidebar() {
+export function Sidebar({ className }: { className?: string }) {
     const pathname = usePathname();
 
     return (
-        <aside className="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 z-40 p-4">
+        <aside className={cn("hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 z-40 p-4", className)}>
             <GlassPanel className="h-full flex flex-col bg-white/40 dark:bg-slate-900/40 border-white/60 dark:border-white/10 backdrop-blur-xl">
                 {/* Logo Area */}
                 <div className="p-6 border-b border-white/20 dark:border-white/5">
@@ -56,12 +56,20 @@ export function Sidebar() {
                     })}
                 </nav>
 
-                {/* Footer / Logout */}
-                <div className="p-4 border-t border-white/20 dark:border-white/5">
-                    <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-500/10 text-slate-600 dark:text-slate-300 hover:text-red-600 dark:hover:text-red-400 transition-colors group">
-                        <LogOut className="w-5 h-5 text-slate-500 dark:text-slate-400 group-hover:text-red-500" />
-                        <span className="font-medium">Sign Out</span>
-                    </button>
+                {/* Footer / User Profile */}
+                <div className="p-4 border-t border-white/20 dark:border-white/5 mt-auto">
+                    <div className="flex items-center gap-3 p-3 rounded-xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/5">
+                        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg">
+                            JD
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <p className="text-sm font-bold text-slate-900 dark:text-white truncate">John Doe</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 truncate">Citizen Lvl 4</p>
+                        </div>
+                        <button className="p-2 rounded-lg hover:bg-red-500/10 text-slate-400 hover:text-red-500 transition-colors" title="Sign Out">
+                            <LogOut className="w-4 h-4" />
+                        </button>
+                    </div>
                 </div>
             </GlassPanel>
         </aside>
