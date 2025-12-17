@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +16,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "JAN-MITRA | AI Governance Layer",
   description: "Intelligence & Accountability Layer for Public Grievances",
+};
+
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+  ],
 };
 
 import { Toaster } from "@/components/ui/sonner";
@@ -37,7 +43,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ThemeToggle />
           {children}
           <Toaster />
         </ThemeProvider>

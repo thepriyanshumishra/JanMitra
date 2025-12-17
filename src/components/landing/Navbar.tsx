@@ -4,6 +4,7 @@ import Link from "next/link";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Navbar() {
     return (
@@ -28,6 +29,9 @@ export function Navbar() {
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </button>
                     </Link>
+                    <div className="pl-4 border-l border-slate-200 dark:border-slate-700">
+                        <ThemeToggle />
+                    </div>
                 </div>
 
                 {/* Mobile Nav Trigger (Simple Link for now) */}

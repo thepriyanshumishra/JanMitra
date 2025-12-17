@@ -1,15 +1,23 @@
 # 🏛️ JAN-MITRA: Governance with Intelligence
 
 [![Vercel App](https://img.shields.io/badge/Vercel-Deployed-black?style=for-the-badge&logo=vercel)](https://janmitraportal.vercel.app/)
+[![PWA Ready](https://img.shields.io/badge/PWA-Mobile%20Ready-purple?style=for-the-badge&logo=pwa)](https://janmitraportal.vercel.app/)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-![Jan-Mitra Command Center](public/screenshots/command-center.png)
+![Jan-Mitra Homepage](public/screenshots/homepage.png)
 
-> **"Portals collect complaints. JAN-MITRA resolves them."**
+> **"Delay is just a symptom. The system is the disease."**
 
-**Jan-Mitra** (People's Friend) is a next-generation civic grievance redressal platform designed to bridge the gap between citizens and administration. It leverages **Browser-Side AI** for instant prioritization and **Blockchain Simulation** for immutable accountability.
+**Jan-Mitra** (People's Friend) is a next-generation civic grievance redressal platform designed to bridge the gap between citizens and administration. It moves beyond simple "complaint logging" to **Intelligent Resolution**.
+
+## 🚨 The Reality Check
+- **1.2 Crore+** Public complaints filed in the last 5 years.
+- **36%** of cases cross SLA deadlines without accountability.
+- **63,000+** new cases added to the backlog every month.
+
+Jan-Mitra solves this with **"Understand First, Act Smartly"** logic.
 
 ## 🌟 Star History
 
@@ -35,11 +43,15 @@ Trust is built on transparency.
 Government software shouldn't look like it's from 1995.
 -   **Glassmorphism UI**: A modern, frosted-glass aesthetic.
 -   **Command Center**: A Bento-grid dashboard for high-density information.
--   **Zero Latency**: Optimistic UI updates for a snappy feel.
+-   **PWA Support**: Installable on mobile devices with a native app feel.
 
 ---
 
 ## 📸 Screenshots
+
+| **Homepage** | **Mobile View (PWA)** |
+|:---:|:---:|
+| ![Homepage](public/screenshots/homepage.png) | ![Mobile View](public/screenshots/mobile-view.png) |
 
 | **Command Center** | **About Page** |
 |:---:|:---:|
@@ -58,6 +70,7 @@ Government software shouldn't look like it's from 1995.
 -   **Icons**: [Lucide React](https://lucide.dev/)
 -   **Charts**: [Recharts](https://recharts.org/)
 -   **State**: React Hooks + Context API
+-   **PWA**: Next.js Metadata + Manifest
 
 ---
 
@@ -92,9 +105,9 @@ Government software shouldn't look like it's from 1995.
 
 ## 🔮 Future Roadmap
 
+-   [x] **Mobile App**: PWA Support for "Add to Home Screen".
 -   [ ] **Real Backend**: Integrate Supabase for persistent data.
 -   [ ] **Smart Contracts**: Deploy actual Solidity contracts to Polygon Amoy Testnet.
--   [ ] **Mobile App**: React Native build for on-the-go reporting.
 -   [ ] **AI Vision**: Image recognition for pothole detection.
 
 ---

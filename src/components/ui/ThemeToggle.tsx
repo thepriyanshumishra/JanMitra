@@ -5,8 +5,9 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { GlassPanel } from "./GlassPanel";
 import { useThemeTransition } from "@/hooks/use-theme-transition";
+import { cn } from "@/lib/utils";
 
-export function ThemeToggle() {
+export function ThemeToggle({ className }: { className?: string }) {
     const { setTheme, resolvedTheme } = useTheme();
     const { transitionType } = useThemeTransition();
     const [mounted, setMounted] = React.useState(false);
@@ -84,13 +85,13 @@ export function ThemeToggle() {
     return (
         <button
             onClick={toggleTheme}
-            className="fixed top-6 right-6 z-50 focus:outline-none"
+            className={cn("focus:outline-none", className)} // Removed fixed positioning
             aria-label="Toggle Theme"
         >
-            <GlassPanel className="p-3 rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-colors">
-                <div className="relative w-6 h-6">
-                    <Sun className="absolute h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-500" />
-                    <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-blue-400" />
+            <GlassPanel className="p-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-colors">
+                <div className="relative w-5 h-5">
+                    <Sun className="absolute h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-500" />
+                    <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-blue-400" />
                 </div>
             </GlassPanel>
         </button>

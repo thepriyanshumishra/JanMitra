@@ -6,6 +6,7 @@ import { LayoutDashboard, PenTool, BarChart3, Settings, LogOut, ShieldCheck } fr
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/Logo";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const navItems = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
@@ -65,6 +66,9 @@ export function Sidebar({ className }: { className?: string }) {
                         <button className="p-2 rounded-lg hover:bg-red-500/10 text-slate-400 hover:text-red-500 transition-colors" title="Sign Out">
                             <LogOut className="w-4 h-4" />
                         </button>
+                    </div>
+                    <div className="mt-4 flex justify-center">
+                        <ThemeToggle />
                     </div>
                 </div>
             </GlassPanel>

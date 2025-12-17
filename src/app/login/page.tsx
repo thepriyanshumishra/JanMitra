@@ -5,10 +5,12 @@ import { GlassPanel } from "@/components/ui/GlassPanel";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import { ArrowLeft, ArrowRight, Lock, Mail } from "lucide-react";
 import { toast } from "sonner";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export default function LoginPage() {
     return (
         <main className="relative min-h-screen flex flex-col items-center justify-center p-6 overflow-hidden">
+            <ThemeToggle className="absolute top-6 right-6 z-50" />
             <AnimatedBackground />
 
             <div className="absolute top-6 left-6 z-20">
