@@ -39,7 +39,13 @@ export async function middleware(request: NextRequest) {
     // 1. Protect Admin Routes
     if (path.startsWith('/admin')) {
         if (!user) {
-            return NextResponse.redirect(new URL('/login', request.url))
+            const url = request.nextUrl.clone()
+            url.pathname = '/login'
+            const redirectResponse = NextResponse.redirect(url)
+            response.cookies.getAll().forEach(cookie => {
+                redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
+            })
+            return redirectResponse
         }
 
         // Fetch user role
@@ -50,14 +56,26 @@ export async function middleware(request: NextRequest) {
             .single()
 
         if (profile?.role !== 'admin') {
-            return NextResponse.redirect(new URL('/dashboard', request.url))
+            const url = request.nextUrl.clone()
+            url.pathname = '/dashboard'
+            const redirectResponse = NextResponse.redirect(url)
+            response.cookies.getAll().forEach(cookie => {
+                redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
+            })
+            return redirectResponse
         }
     }
 
     // 2. Protect Officer Routes (Future proofing)
     if (path.startsWith('/officer')) {
         if (!user) {
-            return NextResponse.redirect(new URL('/login', request.url))
+            const url = request.nextUrl.clone()
+            url.pathname = '/login'
+            const redirectResponse = NextResponse.redirect(url)
+            response.cookies.getAll().forEach(cookie => {
+                redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
+            })
+            return redirectResponse
         }
 
         const { data: profile } = await supabase
@@ -67,14 +85,26 @@ export async function middleware(request: NextRequest) {
             .single()
 
         if (profile?.role !== 'officer' && profile?.role !== 'admin') {
-            return NextResponse.redirect(new URL('/dashboard', request.url))
+            const url = request.nextUrl.clone()
+            url.pathname = '/dashboard'
+            const redirectResponse = NextResponse.redirect(url)
+            response.cookies.getAll().forEach(cookie => {
+                redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
+            })
+            return redirectResponse
         }
     }
 
     // 3. Protect Dashboard (General Auth)
     if (path.startsWith('/dashboard')) {
         if (!user) {
-            return NextResponse.redirect(new URL('/login', request.url))
+            const url = request.nextUrl.clone()
+            url.pathname = '/login'
+            const redirectResponse = NextResponse.redirect(url)
+            response.cookies.getAll().forEach(cookie => {
+                redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
+            })
+            return redirectResponse
         }
     }
 
@@ -89,10 +119,22 @@ export async function middleware(request: NextRequest) {
                 .single()
 
             if (profile?.role === 'admin') {
-                return NextResponse.redirect(new URL('/admin', request.url))
+                const url = request.nextUrl.clone()
+                url.pathname = '/admin'
+                const redirectResponse = NextResponse.redirect(url)
+                response.cookies.getAll().forEach(cookie => {
+                    redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
+                })
+                return redirectResponse
             }
 
-            return NextResponse.redirect(new URL('/dashboard', request.url))
+            const url = request.nextUrl.clone()
+            url.pathname = '/dashboard'
+            const redirectResponse = NextResponse.redirect(url)
+            response.cookies.getAll().forEach(cookie => {
+                redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
+            })
+            return redirectResponse
         }
     }
 
