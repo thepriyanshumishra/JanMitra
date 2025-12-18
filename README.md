@@ -43,10 +43,24 @@ Built specifically for the Indian civic ecosystem.
 -   **Citizen Charter SLAs**: Estimates resolution time based on Indian standards (e.g., 24 hours for power outages).
 -   **Local Terminology**: Understands "Ward", "Zone", "Naka", and other local terms.
 
-### 🏆 Transparent Resolution Flow
-Know exactly what happens after you click "Submit".
--   **Detailed Success Modal**: Shows the assigned **Department**, **Priority Level**, and **SLA**.
--   **Challenge Priority**: Don't agree with the "Medium" priority? Click **"Challenge"** to explain why it's urgent, and the AI will re-evaluate.
+### 🛡️ Role-Based Access Control (RBAC) & Admin Portal
+A complete governance system with dedicated portals.
+-   **Three-Tier Roles**: **Citizen** (Report), **Officer** (Resolve), **Admin** (Manage).
+-   **Admin Dashboard**: comprehensive view of system health, user management, and department oversight.
+-   **Department Management**: Create and manage civic bodies (PWD, Health, Police).
+-   **Secure Routing**: Middleware protection ensures users only access authorized areas.
+
+### 🌐 Multilingual Support (Bharat Interface)
+Accessible to every Indian citizen.
+-   **30+ Languages**: Full UI translation for Hindi, Bengali, Tamil, Telugu, and more.
+-   **Native Script**: Displays languages in their native script (e.g., "हिंदी", "தமிழ்").
+-   **Real-time Translation**: Integrated Google Translate engine for dynamic content.
+
+### ⛓️ Blockchain Trust Layer (Polygon)
+Immutable accountability for every grievance.
+-   **Public Ledger**: Every grievance is hashed and recorded on the Polygon PoS network.
+-   **Tamper-Proof**: Citizens can verify that their complaint hasn't been altered.
+-   **Smart Contracts**: Deployed `GrievanceRegistry` ensures transparency.
 
 ---
 
@@ -56,9 +70,9 @@ Know exactly what happens after you click "Submit".
 |:---:|:---:|
 | ![Chat](public/screenshots/chat-interface.png) | ![Location](public/screenshots/location-manager.png) |
 
-| **Success Modal** | **Command Center** |
+| **Admin Portal** | **Public Ledger** |
 |:---:|:---:|
-| ![Success](public/screenshots/success-modal.png) | ![Dashboard](public/screenshots/command-center.png) |
+| ![Admin](public/screenshots/admin-portal.png) | ![Ledger](public/screenshots/ledger.png) |
 
 ---
 
@@ -66,11 +80,12 @@ Know exactly what happens after you click "Submit".
 
 -   **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
 -   **AI Engine**: [Groq SDK](https://groq.com/) (Llama 3.3 70B)
+-   **Database & Auth**: [Supabase](https://supabase.com/) (PostgreSQL + RLS)
+-   **Blockchain**: [Polygon PoS](https://polygon.technology/) (Amoy Testnet) + [Ethers.js](https://docs.ethers.org/)
 -   **Maps/Geocoding**: [OpenStreetMap](https://www.openstreetmap.org/) (Nominatim API)
 -   **Styling**: [Tailwind CSS](https://tailwindcss.com/) + Custom Glass Utilities
 -   **Animations**: [Framer Motion](https://www.framer.com/motion/)
 -   **Icons**: [Lucide React](https://lucide.dev/)
--   **State**: React Hooks + Context API
 
 ---
 
@@ -80,6 +95,7 @@ Know exactly what happens after you click "Submit".
 -   Node.js 18+
 -   npm / yarn / pnpm
 -   **Groq API Key**: Get one from [console.groq.com](https://console.groq.com/)
+-   **Supabase Project**: Create one at [supabase.com](https://supabase.com/)
 
 ### Installation
 
@@ -97,7 +113,9 @@ Know exactly what happens after you click "Submit".
 3.  **Set up Environment Variables**
     Create a `.env.local` file:
     ```env
-    GROQ_API_KEY=your_api_key_here
+    GROQ_API_KEY=your_groq_key
+    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
     ```
 
 4.  **Run the development server**
@@ -115,9 +133,12 @@ Know exactly what happens after you click "Submit".
 -   [x] **AI Chat Interface**: Conversational grievance filing.
 -   [x] **Geo-Spatial Integration**: GPS and Reverse Geocoding.
 -   [x] **Localization**: India-specific departments and SLAs.
--   [ ] **Real Backend**: Integrate Supabase for persistent data.
--   [ ] **Smart Contracts**: Deploy actual Solidity contracts to Polygon Amoy Testnet.
--   [ ] **Multilingual Support**: Hindi, Kannada, Tamil support for the AI.
+-   [x] **Real Backend**: Integrate Supabase for persistent data.
+-   [x] **Smart Contracts**: Deploy actual Solidity contracts to Polygon Amoy Testnet.
+-   [x] **Multilingual Support**: Hindi, Kannada, Tamil support for the AI.
+-   [x] **Admin Portal**: User and Department management.
+-   [ ] **Officer Mobile App**: Dedicated PWA for field officers.
+-   [ ] **WhatsApp Integration**: File grievances via WhatsApp Bot.
 
 ---
 
