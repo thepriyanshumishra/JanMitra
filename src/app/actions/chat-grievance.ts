@@ -1,6 +1,8 @@
 "use server";
 
 import Groq from "groq-sdk";
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY || "",
@@ -29,6 +31,24 @@ export interface ChatResponse {
 }
 
 export async function chatWithGrievanceAI(history: Message[], currentInput: string, imageBase64?: string | null): Promise<ChatResponse | null> {
+    const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+            cookies: {
+                getAll() { return [] }, // Read-only for auth check
+                setAll() { }
+            }
+        }
+    );
+
+    // Verify Authentication
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+        console.error("Unauthorized: User must be logged in to use AI.");
+        return null;
+    }
+
     if (!process.env.GROQ_API_KEY) {
         console.error("GROQ_API_KEY is not set");
         return null;

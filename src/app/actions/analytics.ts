@@ -1,6 +1,7 @@
 "use server";
 
-import { supabase } from "@/lib/supabase";
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
 // Mock data for demonstration (shown when no real data exists)
 const mockCategoryData = [
@@ -29,6 +30,38 @@ const mockTrendData = [
 
 export async function getAnalyticsData() {
     try {
+        const cookieStore = await cookies();
+        const supabase = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            {
+                cookies: {
+                    getAll() {
+                        return cookieStore.getAll()
+                    },
+                    setAll(cookiesToSet) {
+                        try {
+                            cookiesToSet.forEach(({ name, value, options }) =>
+                                cookieStore.set(name, value, options)
+                            )
+                        } catch {
+                        }
+                    },
+                },
+            }
+        );
+
+        // Verify Authentication
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            console.error("Unauthorized: User must be logged in to view analytics.");
+            return {
+                categoryData: mockCategoryData,
+                sentimentData: mockSentimentData,
+                trendData: mockTrendData
+            };
+        }
+
         // Fetch all grievances
         const { data: grievances, error } = await supabase
             .from("grievances")
