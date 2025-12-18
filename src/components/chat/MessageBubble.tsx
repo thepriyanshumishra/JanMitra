@@ -29,10 +29,10 @@ export function MessageBubble({ role, content }: MessageBubbleProps) {
 
             <div
                 className={cn(
-                    "max-w-[80%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm",
+                    "max-w-[80%] p-3.5 px-5 rounded-2xl text-[15px] leading-relaxed shadow-sm relative",
                     isAi
-                        ? "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-tl-none border border-slate-100 dark:border-slate-700"
-                        : "bg-blue-600 text-white rounded-tr-none"
+                        ? "bg-[#E9E9EB] dark:bg-[#3A3A3C] text-black dark:text-white rounded-tl-sm" // AI: System Gray
+                        : "bg-gradient-to-b from-[#007AFF] to-[#0062CC] text-white rounded-tr-sm" // User: iMessage Blue
                 )}
             >
                 {content}

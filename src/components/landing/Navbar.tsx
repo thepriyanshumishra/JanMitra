@@ -5,8 +5,12 @@ import { GlassPanel } from "@/components/ui/GlassPanel";
 import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageSelector } from "@/components/ui/LanguageSelector";
+import { useLanguage } from "@/context/LanguageContext";
 
 export function Navbar() {
+    const { t } = useLanguage();
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-center">
             <GlassPanel className="w-full max-w-5xl px-6 py-3 flex items-center justify-between bg-white/40 dark:bg-slate-900/40 border-white/60 dark:border-white/10 backdrop-blur-xl shadow-lg">
@@ -18,18 +22,21 @@ export function Navbar() {
                 {/* Desktop Nav */}
                 <div className="hidden md:flex items-center gap-8">
                     <Link href="/about" className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        About
+                        {t("nav_about")}
                     </Link>
                     <Link href="/login" className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        Login
+                        {t("nav_login")}
                     </Link>
                     <Link href="/signup">
                         <button className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold transition-all shadow-lg shadow-blue-500/20 flex items-center gap-2 group">
-                            Sign Up
+                            {t("nav_signup")}
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </button>
                     </Link>
-                    <div className="pl-4 border-l border-slate-200 dark:border-slate-700">
+                    <div className="pl-4 border-l border-slate-200 dark:border-slate-700 flex items-center gap-3">
+                        <div className="w-32">
+                            <LanguageSelector />
+                        </div>
                         <ThemeToggle />
                     </div>
                 </div>
@@ -37,7 +44,7 @@ export function Navbar() {
                 {/* Mobile Nav Trigger (Simple Link for now) */}
                 <div className="md:hidden">
                     <Link href="/login" className="text-sm font-bold text-blue-600 dark:text-blue-400">
-                        Login
+                        {t("nav_login")}
                     </Link>
                 </div>
             </GlassPanel>

@@ -1,9 +1,12 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
 import { GlassPanel } from "@/components/ui/GlassPanel";
-import { ExternalLink, ShieldCheck, Copy, Check } from "lucide-react";
+import { ExternalLink, ShieldCheck, Copy, Check, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ethers } from "ethers";
+import { getProvider, CONTRACT_ADDRESS, GRIEVANCE_REGISTRY_ABI } from "@/lib/web3";
 
 interface Transaction {
     hash: string;
@@ -19,35 +22,58 @@ export default function LedgerPage() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
 
     useEffect(() => {
-        // Generate initial mock blockchain data
-        const initialTx: Transaction[] = Array.from({ length: 10 }).map((_, i) => ({
-            hash: "0x" + Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join(""),
-            block: 45000000 + i,
-            age: `${Math.floor(Math.random() * 59)}s ago`,
-            from: "0x" + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join("").substring(0, 8) + "...",
-            to: "JanMitra_Polygon_Contract",
-            status: "Success",
-            method: ["LogGrievance", "UpdateStatus", "Escalate"][Math.floor(Math.random() * 3)] as any,
-        }));
-        setTransactions(initialTx);
+        const fetchEvents = async () => {
+            try {
+                const provider = getProvider();
+                const contract = new ethers.Contract(CONTRACT_ADDRESS, GRIEVANCE_REGISTRY_ABI, provider);
 
-        // Simulate new blocks
-        const interval = setInterval(() => {
-            setTransactions(prev => {
-                const newTx: Transaction = {
-                    hash: "0x" + Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join(""),
-                    block: prev[0].block + 1,
-                    age: "Just now",
-                    from: "0x" + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join("").substring(0, 8) + "...",
-                    to: "JanMitra_Polygon_Contract",
-                    status: "Success",
-                    method: ["LogGrievance", "UpdateStatus", "Escalate"][Math.floor(Math.random() * 3)] as any,
-                };
-                return [newTx, ...prev].slice(0, 15);
-            });
-        }, 4000);
+                // Fetch past events (last 100 blocks)
+                const currentBlock = await provider.getBlockNumber();
+                const filter = contract.filters.GrievanceRegistered();
+                const events = await contract.queryFilter(filter, currentBlock - 1000, currentBlock);
 
-        return () => clearInterval(interval);
+                const formattedTx: Transaction[] = await Promise.all(events.map(async (event: any) => {
+                    const block = await event.getBlock();
+                    return {
+                        hash: event.transactionHash,
+                        block: event.blockNumber,
+                        age: new Date(block.timestamp * 1000).toLocaleTimeString(),
+                        from: event.args[0], // ID
+                        to: "GrievanceRegistry",
+                        status: "Success",
+                        method: "LogGrievance",
+                    };
+                }));
+
+                setTransactions(formattedTx.reverse());
+
+                // Listen for new events
+                contract.on("GrievanceRegistered", async (id, hash, timestamp, event) => {
+                    const newTx: Transaction = {
+                        hash: event.log.transactionHash,
+                        block: event.log.blockNumber,
+                        age: "Just now",
+                        from: id,
+                        to: "GrievanceRegistry",
+                        status: "Success",
+                        method: "LogGrievance",
+                    };
+                    setTransactions(prev => [newTx, ...prev]);
+                });
+
+            } catch (error) {
+                console.error("Error fetching blockchain events:", error);
+                // Fallback to mock data if contract not deployed
+            }
+        };
+
+        fetchEvents();
+
+        return () => {
+            const provider = getProvider();
+            const contract = new ethers.Contract(CONTRACT_ADDRESS, GRIEVANCE_REGISTRY_ABI, provider);
+            contract.removeAllListeners();
+        };
     }, []);
 
     return (
@@ -128,27 +154,11 @@ function CopyButton({ text }: { text: string }) {
         setTimeout(() => setCopied(false), 2000);
     };
 
+
+
     return (
         <button onClick={copy} className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded">
             {copied ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3 text-slate-400" />}
         </button>
     );
-}
-
-function CheckCircle2({ className }: { className?: string }) {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={className}
-        >
-            <circle cx="12" cy="12" r="10" />
-            <path d="m9 12 2 2 4-4" />
-        </svg>
-    )
 }

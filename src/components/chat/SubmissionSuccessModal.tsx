@@ -40,68 +40,77 @@ export function SubmissionSuccessModal({ isOpen, onClose, onChallenge, data }: S
                     exit={{ scale: 0.9, opacity: 0, y: 20 }}
                     className="w-full max-w-md"
                 >
-                    <GlassPanel className="p-6 relative overflow-hidden">
-                        {/* Success Header */}
-                        <div className="flex flex-col items-center text-center mb-6">
-                            <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-4">
-                                <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" />
-                            </div>
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Grievance Filed!</h2>
-                            <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">ID: #{data.id}</p>
+                    <GlassPanel className="p-0 relative overflow-hidden flex flex-col">
+                        {/* macOS Title Bar */}
+                        <div className="h-10 bg-white/50 dark:bg-slate-800/50 border-b border-slate-200/50 dark:border-slate-700/50 flex items-center px-4 gap-2">
+                            <div className="w-3 h-3 rounded-full bg-[#FF5F57] border border-[#E0443E]" />
+                            <div className="w-3 h-3 rounded-full bg-[#FEBC2E] border border-[#D89E24]" />
+                            <div className="w-3 h-3 rounded-full bg-[#28C840] border border-[#1AAB29]" />
                         </div>
 
-                        {/* Details Grid */}
-                        <div className="grid grid-cols-2 gap-3 mb-6">
-                            {/* Priority Card */}
-                            <div className={`p-3 rounded-xl border ${getPriorityColor(data.priority)} flex flex-col items-center justify-center text-center`}>
-                                <ShieldAlert className="w-5 h-5 mb-1 opacity-80" />
-                                <span className="text-xs font-medium opacity-70 uppercase tracking-wider">Priority</span>
-                                <span className="text-lg font-bold">{data.priority || "Medium"}</span>
-                            </div>
-
-                            {/* SLA Card */}
-                            <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center justify-center text-center">
-                                <Clock className="w-5 h-5 mb-1 text-slate-500 dark:text-slate-400" />
-                                <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Resolution Time</span>
-                                <span className="text-lg font-bold text-slate-800 dark:text-slate-200">{data.sla || "48 Hrs"}</span>
-                            </div>
-
-                            {/* Department Card (Full Width) */}
-                            <div className="col-span-2 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center gap-3">
-                                <div className="p-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
-                                    <Building2 className="w-5 h-5" />
+                        <div className="p-6">
+                            {/* Success Header */}
+                            <div className="flex flex-col items-center text-center mb-6">
+                                <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-4 shadow-inner">
+                                    <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" />
                                 </div>
-                                <div className="flex-1 text-left">
-                                    <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Assigned Department</span>
-                                    <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">{data.department || "General Administration"}</span>
+                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Grievance Filed</h2>
+                                <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-medium">ID: #{data.id}</p>
+                            </div>
+
+                            {/* Details Grid */}
+                            <div className="grid grid-cols-2 gap-3 mb-6">
+                                {/* Priority Card */}
+                                <div className={`p-3 rounded-xl border ${getPriorityColor(data.priority)} flex flex-col items-center justify-center text-center shadow-sm`}>
+                                    <ShieldAlert className="w-5 h-5 mb-1 opacity-80" />
+                                    <span className="text-[10px] font-bold opacity-60 uppercase tracking-widest">Priority</span>
+                                    <span className="text-lg font-bold">{data.priority || "Medium"}</span>
+                                </div>
+
+                                {/* SLA Card */}
+                                <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center justify-center text-center shadow-sm">
+                                    <Clock className="w-5 h-5 mb-1 text-slate-500 dark:text-slate-400" />
+                                    <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Resolution</span>
+                                    <span className="text-lg font-bold text-slate-800 dark:text-slate-200">{data.sla || "48 Hrs"}</span>
+                                </div>
+
+                                {/* Department Card (Full Width) */}
+                                <div className="col-span-2 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center gap-3 shadow-sm">
+                                    <div className="p-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+                                        <Building2 className="w-5 h-5" />
+                                    </div>
+                                    <div className="flex-1 text-left">
+                                        <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest block">Assigned Department</span>
+                                        <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">{data.department || "General Administration"}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Summary */}
-                        <div className="mb-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-700/50">
-                            <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Summary</h4>
-                            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                                {data.summary}
-                            </p>
-                        </div>
+                            {/* Summary */}
+                            <div className="mb-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-700/50">
+                                <h4 className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2">Summary</h4>
+                                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                                    {data.summary}
+                                </p>
+                            </div>
 
-                        {/* Actions */}
-                        <div className="space-y-3">
-                            <button
-                                onClick={onClose}
-                                className="w-full py-3 px-4 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
-                            >
-                                Done
-                            </button>
+                            {/* Actions */}
+                            <div className="space-y-3">
+                                <button
+                                    onClick={onClose}
+                                    className="w-full py-3 px-4 rounded-full bg-[#007AFF] text-white font-semibold shadow-lg hover:bg-[#0062CC] transition-all active:scale-95"
+                                >
+                                    Done
+                                </button>
 
-                            <button
-                                onClick={onChallenge}
-                                className="w-full py-3 px-4 rounded-xl bg-transparent border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 font-medium hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex items-center justify-center gap-2"
-                            >
-                                <AlertTriangle className="w-4 h-4" />
-                                Challenge Priority Level
-                            </button>
+                                <button
+                                    onClick={onChallenge}
+                                    className="w-full py-3 px-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 active:scale-95"
+                                >
+                                    <AlertTriangle className="w-4 h-4" />
+                                    Challenge Priority
+                                </button>
+                            </div>
                         </div>
                     </GlassPanel>
                 </motion.div>

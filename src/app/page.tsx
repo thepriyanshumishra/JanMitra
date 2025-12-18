@@ -1,11 +1,16 @@
+"use client";
+
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { ArrowRight, ShieldCheck, Zap, BrainCircuit, Clock, Users, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
     <main className="relative min-h-screen flex flex-col overflow-x-hidden">
       <Navbar />
@@ -21,53 +26,50 @@ export default function Home() {
 
         {/* Hero Text */}
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 dark:text-white drop-shadow-sm">
-          Governance with <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">Intelligence</span> & <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400">Accountability</span>
+          {t("hero_title")}
         </h1>
 
         <p className="text-lg md:text-xl text-slate-600 dark:text-blue-100/80 max-w-2xl mx-auto leading-relaxed font-medium">
-          Portals collect complaints. <span className="font-bold text-slate-900 dark:text-white">JAN-MITRA resolves them.</span>
-          <br />
-          AI-powered prioritization, blockchain-backed accountability, and zero-latency governance.
+          {t("hero_subtitle")}
         </p>
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
           <Link href="/dashboard" className="w-full sm:w-auto">
             <GlassPanel className="px-8 py-4 flex items-center justify-center gap-2 group bg-blue-600/90 hover:bg-blue-600 text-white border-transparent shadow-lg hover:shadow-blue-500/30">
-              <span className="font-semibold">Launch Dashboard</span>
+              <span className="font-semibold">{t("cta_start")}</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </GlassPanel>
           </Link>
           <Link href="/about" className="w-full sm:w-auto">
             <GlassPanel className="px-8 py-4 flex items-center justify-center gap-2 bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 hover:bg-white/60 dark:hover:bg-white/10 text-slate-700 dark:text-blue-200 shadow-sm">
-              <span className="font-semibold">How it Works</span>
+              <span className="font-semibold">{t("cta_learn")}</span>
             </GlassPanel>
           </Link>
         </div>
         {/* The Reality Check (Research Data) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 text-left">
           <div className="col-span-1 md:col-span-3 text-center mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Why We Built This</h2>
-            <p className="text-slate-600 dark:text-slate-400">The current system is overwhelmed. The data speaks for itself.</p>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{t("why_title")}</h2>
+            <p className="text-slate-600 dark:text-slate-400">{t("why_desc")}</p>
           </div>
 
           <GlassPanel className="p-6 bg-red-50/50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20">
-            <div className="text-4xl font-black text-red-600 dark:text-red-400 mb-2">1.2 Cr+</div>
-            <div className="font-bold text-slate-900 dark:text-white mb-2">Public Complaints</div>
-            <p className="text-xs text-slate-600 dark:text-slate-400">Filed in the last 5 years. The volume is massive.</p>
+            <div className="text-4xl font-black text-red-600 dark:text-red-400 mb-2">{t("stat_complaints_val")}</div>
+            <div className="font-bold text-slate-900 dark:text-white mb-2">{t("stat_complaints_label")}</div>
+            <p className="text-xs text-slate-600 dark:text-slate-400">{t("stat_complaints_desc")}</p>
           </GlassPanel>
 
           <GlassPanel className="p-6 bg-orange-50/50 dark:bg-orange-900/10 border-orange-100 dark:border-orange-900/20">
-            <div className="text-4xl font-black text-orange-600 dark:text-orange-400 mb-2">36%</div>
-            <div className="font-bold text-slate-900 dark:text-white mb-2">Missed Deadlines</div>
-            <p className="text-xs text-slate-600 dark:text-slate-400">Cases crossing SLA timelines without accountability.</p>
+            <div className="text-4xl font-black text-orange-600 dark:text-orange-400 mb-2">{t("stat_deadlines_val")}</div>
+            <div className="font-bold text-slate-900 dark:text-white mb-2">{t("stat_deadlines_label")}</div>
+            <p className="text-xs text-slate-600 dark:text-slate-400">{t("stat_deadlines_desc")}</p>
           </GlassPanel>
 
           <GlassPanel className="p-6 bg-slate-50/50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-700">
-            <div className="text-4xl font-black text-slate-900 dark:text-white mb-2">63,000</div>
-            <div className="font-bold text-slate-900 dark:text-white mb-2">Pending Monthly</div>
-            <p className="text-xs text-slate-600 dark:text-slate-400">New backlog added every single month.</p>
+            <div className="text-4xl font-black text-slate-900 dark:text-white mb-2">{t("stat_pending_val")}</div>
+            <div className="font-bold text-slate-900 dark:text-white mb-2">{t("stat_pending_label")}</div>
+            <p className="text-xs text-slate-600 dark:text-slate-400">{t("stat_pending_desc")}</p>
           </GlassPanel>
         </div>
       </div>
@@ -79,9 +81,9 @@ export default function Home() {
             <div className="h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-500/20 flex items-center justify-center">
               <Zap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             </div>
-            <h3 className="text-xl font-semibold text-slate-900 dark:text-white">AI Prioritization</h3>
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{t("feat_ai_title")}</h3>
             <p className="text-sm text-slate-600 dark:text-blue-100/70 leading-relaxed">
-              Natural Language Processing understands urgency instantly. No more "first come, first served" for critical issues like fire or flooding.
+              {t("feat_ai_desc")}
             </p>
           </GlassPanel>
 
@@ -89,9 +91,9 @@ export default function Home() {
             <div className="h-12 w-12 rounded-full bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center">
               <ShieldCheck className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             </div>
-            <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Blockchain Audit</h3>
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{t("feat_blockchain_title")}</h3>
             <p className="text-sm text-slate-600 dark:text-blue-100/70 leading-relaxed">
-              Every status change is hashed on Polygon. Immutable proof of SLA compliance that cannot be tampered with by officials.
+              {t("feat_blockchain_desc")}
             </p>
           </GlassPanel>
 
@@ -99,9 +101,9 @@ export default function Home() {
             <div className="h-12 w-12 rounded-full bg-pink-100 dark:bg-pink-500/20 flex items-center justify-center">
               <div className="text-xl font-bold text-pink-600 dark:text-pink-400">SLA</div>
             </div>
-            <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Auto-Escalation</h3>
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{t("feat_sla_title")}</h3>
             <p className="text-sm text-slate-600 dark:text-blue-100/70 leading-relaxed">
-              Smart timers auto-escalate unresolved grievances to supervisors. Accountability is enforced by code, not bureaucracy.
+              {t("feat_sla_desc")}
             </p>
           </GlassPanel>
         </div>
@@ -111,9 +113,9 @@ export default function Home() {
       <div className="relative z-10 w-full bg-white/30 dark:bg-black/20 backdrop-blur-sm py-24 border-y border-white/10">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">From Complaint to Resolution</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">{t("how_title")}</h2>
             <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              A transparent journey powered by automation.
+              {t("how_desc")}
             </p>
           </div>
 
@@ -123,20 +125,20 @@ export default function Home() {
 
             <StepCard
               number="01"
-              title="Citizen Reports"
-              desc="Upload photo/video. AI auto-tags location and category."
+              title={t("step_1_title")}
+              desc={t("step_1_desc")}
               icon={Users}
             />
             <StepCard
               number="02"
-              title="AI Analyzes"
-              desc="Severity score assigned. Routed to correct department instantly."
+              title={t("step_2_title")}
+              desc={t("step_2_desc")}
               icon={BrainCircuit}
             />
             <StepCard
               number="03"
-              title="Action Taken"
-              desc="Crews dispatched. Status updated on public ledger."
+              title={t("step_3_title")}
+              desc={t("step_3_desc")}
               icon={CheckCircle2}
             />
           </div>
@@ -146,10 +148,10 @@ export default function Home() {
       {/* Live Stats Section */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <StatCard value="12,450+" label="Grievances Resolved" />
-          <StatCard value="98.2%" label="SLA Compliance" />
-          <StatCard value="2.4 hrs" label="Avg. Response Time" />
-          <StatCard value="150+" label="Civic Departments" />
+          <StatCard value="12,450+" label={t("live_resolved")} />
+          <StatCard value="98.2%" label={t("live_sla")} />
+          <StatCard value="2.4 hrs" label={t("live_time")} />
+          <StatCard value="150+" label={t("live_depts")} />
         </div>
       </div>
 

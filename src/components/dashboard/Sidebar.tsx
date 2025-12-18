@@ -7,17 +7,25 @@ import { GlassPanel } from "@/components/ui/GlassPanel";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/Logo";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { useAuth } from "@/context/AuthContext";
+import { useRole } from "@/hooks/useRole";
 
-const navItems = [
-    { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Submit Grievance", href: "/dashboard/submit", icon: PenTool },
-    { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
-    { name: "Public Ledger", href: "/dashboard/ledger", icon: ShieldCheck },
-    { name: "Settings", href: "/dashboard/settings", icon: Settings },
-];
+import { LanguageSelector } from "@/components/ui/LanguageSelector";
+import { useLanguage } from "@/context/LanguageContext";
 
 export function Sidebar({ className }: { className?: string }) {
+    const { user, signOut } = useAuth();
+    const { role } = useRole();
+    const { t } = useLanguage();
     const pathname = usePathname();
+
+    const navItems = [
+        { name: t("nav_overview"), href: "/dashboard", icon: LayoutDashboard },
+        { name: t("nav_submit"), href: "/dashboard/submit", icon: PenTool },
+        { name: t("nav_analytics"), href: "/dashboard/analytics", icon: BarChart3 },
+        { name: t("nav_ledger"), href: "/dashboard/ledger", icon: ShieldCheck },
+        { name: t("nav_settings"), href: "/dashboard/settings", icon: Settings },
+    ];
 
     return (
         <aside className={cn("hidden md:flex flex-col w-64 h-auto fixed left-6 top-1/2 -translate-y-1/2 z-40", className)}>
@@ -41,7 +49,7 @@ export function Sidebar({ className }: { className?: string }) {
                 {/* Navigation */}
                 <nav className="flex-1 px-3 py-2 space-y-1">
                     <div className="px-3 py-2 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                        Apps
+                        {t("apps_label")}
                     </div>
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
@@ -65,17 +73,35 @@ export function Sidebar({ className }: { className?: string }) {
                     })}
                 </nav>
 
+
                 {/* Footer / User Profile */}
-                <div className="p-3 mt-2 bg-white/30 dark:bg-black/10 backdrop-blur-sm border-t border-white/10">
-                    <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/40 dark:hover:bg-white/5 transition-colors cursor-pointer group">
-                        <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-inner ring-2 ring-white/20 group-hover:ring-blue-400 transition-all">
-                            JD
-                        </div>
-                        <div className="flex-1 min-w-0">
-                            <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">John Doe</p>
-                            <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 truncate">Citizen Lvl 4</p>
+                <div className="p-3 mt-2 bg-white/30 dark:bg-black/10 backdrop-blur-sm border-t border-white/10 space-y-3">
+                    {/* Language Selector & Theme Toggle */}
+                    <div className="flex items-center gap-2">
+                        <div className="flex-1">
+                            <LanguageSelector />
                         </div>
                         <ThemeToggle />
+                    </div>
+
+                    <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/40 dark:hover:bg-white/5 transition-colors cursor-pointer group">
+                        <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-inner ring-2 ring-white/20 group-hover:ring-blue-400 transition-all">
+                            {user?.email?.[0].toUpperCase() || "JD"}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{user?.email?.split('@')[0] || "Guest"}</p>
+                            <p className={cn(
+                                "text-[10px] font-medium truncate capitalize",
+                                role === "admin" ? "text-red-500 font-bold" :
+                                    role === "officer" ? "text-purple-500 font-semibold" :
+                                        "text-slate-500 dark:text-slate-400"
+                            )}>
+                                {role === "admin" ? "🛡️ Admin" : role === "officer" ? "👮 Officer" : "👤 Citizen"}
+                            </p>
+                        </div>
+                        <button onClick={signOut} className="p-1.5 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 text-slate-400 hover:text-red-500 transition-colors" title={t("sign_out")}>
+                            <LogOut className="w-4 h-4" />
+                        </button>
                     </div>
                 </div>
             </div>

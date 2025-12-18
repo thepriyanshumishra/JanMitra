@@ -1,16 +1,51 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
-import { ArrowLeft, ArrowRight, Lock, Mail } from "lucide-react";
+import { ArrowLeft, Lock, Mail } from "lucide-react";
 import { toast } from "sonner";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageSelector } from "@/components/ui/LanguageSelector";
+import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
+    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) throw error;
+
+            toast.success("Welcome back!");
+            router.push("/dashboard");
+        } catch (error: any) {
+            toast.error(error.message || "Failed to sign in");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <main className="relative min-h-screen flex flex-col items-center justify-center p-6 overflow-hidden">
-            <ThemeToggle className="absolute top-6 right-6 z-50" />
+            <div className="absolute top-6 right-6 z-50 flex items-center gap-2">
+                <div className="w-32">
+                    <LanguageSelector />
+                </div>
+                <ThemeToggle />
+            </div>
             <AnimatedBackground />
 
             <div className="absolute top-6 left-6 z-20">
@@ -27,7 +62,7 @@ export default function LoginPage() {
                     <p className="text-slate-500 dark:text-slate-400">Sign in to access the governance portal.</p>
                 </div>
 
-                <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-6" onSubmit={handleLogin}>
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Email Address</label>
                         <div className="relative">
@@ -35,6 +70,9 @@ export default function LoginPage() {
                             <input
                                 type="email"
                                 placeholder="citizen@jan-mitra.gov"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
                                 className="w-full pl-10 pr-4 py-2 rounded-lg bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                             />
                         </div>
@@ -47,25 +85,26 @@ export default function LoginPage() {
                             <input
                                 type="password"
                                 placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
                                 className="w-full pl-10 pr-4 py-2 rounded-lg bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                             />
                         </div>
                     </div>
 
-                    <Link href="/dashboard" className="block">
-                        <button
-                            onClick={() => toast.success("Welcome back, Citizen!", { description: "You have successfully logged in." })}
-                            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 group"
-                        >
-                            Sign In
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </button>
-                    </Link>
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {isLoading ? "Signing in..." : "Sign In"}
+                    </button>
                 </form>
 
-                <div className="text-center text-sm text-slate-500 dark:text-slate-400">
+                <div className="text-center textsl dark:text-slate-400">
                     Don't have an account?{" "}
-                    <Link href="/signup" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
+                    <Link href="/signup" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
                         Sign up
                     </Link>
                 </div>

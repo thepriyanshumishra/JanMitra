@@ -9,20 +9,39 @@ import { EscalationTimer } from "@/components/dashboard/EscalationTimer";
 import { NewsTicker } from "@/components/dashboard/NewsTicker";
 import { GrievanceMap } from "@/components/dashboard/GrievanceMap";
 import { motion } from "framer-motion";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/context/AuthContext";
 
 export default function DashboardPage() {
-    const [grievances, setGrievances] = useState<Grievance[]>([]);
+    const { user } = useAuth();
+    const [grievances, setGrievances] = useState<any[]>([]);
 
     useEffect(() => {
-        const initialData = Array.from({ length: 5 }).map((_, i) => generateMockGrievance(`init-${i}`));
-        setGrievances(initialData);
+        if (user) {
+            const fetchGrievances = async () => {
+                const { data, error } = await supabase
+                    .from("grievances")
+                    .select("*")
+                    .eq("user_id", user.id)
+                    .order("created_at", { ascending: false });
 
-        const interval = setInterval(() => {
-            setGrievances(prev => [generateMockGrievance(`new-${Date.now()}`), ...prev].slice(0, 10));
-        }, 5000);
+                if (data) setGrievances(data);
+            };
+            fetchGrievances();
 
-        return () => clearInterval(interval);
-    }, []);
+            // Real-time subscription
+            const subscription = supabase
+                .channel("grievances")
+                .on("postgres_changes", { event: "*", schema: "public", table: "grievances" }, (payload) => {
+                    fetchGrievances();
+                })
+                .subscribe();
+
+            return () => {
+                subscription.unsubscribe();
+            };
+        }
+    }, [user]);
 
     return (
         <div className="space-y-6">

@@ -16,8 +16,9 @@ export const GlassPanel = React.forwardRef<HTMLDivElement, GlassPanelProps>(
             <motion.div
                 ref={ref}
                 className={cn(
-                    "relative overflow-hidden rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-xl",
-                    "transition-all duration-300 hover:bg-white/15 hover:border-white/30 hover:shadow-2xl",
+                    "relative overflow-hidden rounded-2xl border border-white/20 bg-white/10 backdrop-blur-2xl shadow-2xl",
+                    "transition-all duration-300 hover:bg-white/15 hover:border-white/30",
+                    "before:absolute before:inset-0 before:rounded-2xl before:border before:border-white/10 before:pointer-events-none", // Inner ring effect
                     gradient && "bg-gradient-to-br from-white/10 to-white/5",
                     className
                 )}
