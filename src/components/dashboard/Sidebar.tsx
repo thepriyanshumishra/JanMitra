@@ -111,12 +111,15 @@ export function Sidebar({ className }: { className?: string }) {
                         );
                     })}
                     {role === "admin" && (
-                        <Link href="/admin">
+                        <div
+                            onClick={() => window.location.href = "https://janmitraportal.vercel.app/admin"}
+                            className="cursor-pointer"
+                        >
                             <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group text-sm font-medium bg-gradient-to-r from-red-500/10 to-orange-500/10 hover:from-red-500/20 hover:to-orange-500/20 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900/30 mb-2">
                                 <ShieldCheck className="w-4 h-4" />
                                 <span>{t("nav_admin")}</span>
                             </div>
-                        </Link>
+                        </div>
                     )}
                 </nav>
 
