@@ -28,6 +28,7 @@ export interface ChatResponse {
     isComplete: boolean;
     requestEvidence?: boolean;
     requestLocation?: boolean;
+    isError?: boolean;
 }
 
 export async function chatWithGrievanceAI(history: Message[], currentInput: string, imageBase64?: string | null): Promise<ChatResponse | null> {
