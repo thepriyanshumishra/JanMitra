@@ -81,6 +81,17 @@ export async function middleware(request: NextRequest) {
     // 4. Redirect Logged-in Users away from Auth pages
     if (path === '/login' || path === '/signup') {
         if (user) {
+            // Check if user is admin
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('role')
+                .eq('id', user.id)
+                .single()
+
+            if (profile?.role === 'admin') {
+                return NextResponse.redirect(new URL('/admin', request.url))
+            }
+
             return NextResponse.redirect(new URL('/dashboard', request.url))
         }
     }
