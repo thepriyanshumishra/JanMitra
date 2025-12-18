@@ -18,8 +18,40 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JAN-MITRA | AI Governance Layer",
-  description: "Intelligence & Accountability Layer for Public Grievances",
+  metadataBase: new URL('https://jan-mitra.vercel.app'), // Replace with actual domain
+  title: {
+    default: "JAN-MITRA | AI Governance Layer",
+    template: "%s | JAN-MITRA"
+  },
+  description: "Next-Gen Intelligence & Accountability Layer for Public Grievances. Powered by AI, Secured by Blockchain.",
+  applicationName: "JAN-MITRA",
+  authors: [{ name: "Jan-Mitra Team" }],
+  keywords: ["Governance", "AI", "Blockchain", "Grievance Redressal", "Smart City", "India", "Civic Tech"],
+  openGraph: {
+    title: "JAN-MITRA | AI Governance Layer",
+    description: "Transforming public grievance redressal with AI agents and Blockchain transparency.",
+    url: 'https://jan-mitra.vercel.app',
+    siteName: 'JAN-MITRA',
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "JAN-MITRA | AI Governance Layer",
+    description: "The future of civic engagement. Report, Track, Resolve.",
+    creator: "@janmitra_gov",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export const viewport = {
