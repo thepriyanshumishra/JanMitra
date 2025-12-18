@@ -82,6 +82,11 @@ export default function SubmitGrievancePage() {
             if (base64) clearImage();
 
             if (response) {
+                if (response.isError) {
+                    toast.error(response.message);
+                    return;
+                }
+
                 const aiMsg: Message = { role: "assistant", content: response.message };
                 setMessages(prev => [...prev, aiMsg]);
                 setSuretyScore(response.suretyScore);

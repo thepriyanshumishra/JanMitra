@@ -31,14 +31,28 @@ export interface ChatResponse {
 }
 
 export async function chatWithGrievanceAI(history: Message[], currentInput: string, imageBase64?: string | null): Promise<ChatResponse | null> {
+    const cookieStore = await cookies();
+
     const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
         {
             cookies: {
-                getAll() { return [] }, // Read-only for auth check
-                setAll() { }
-            }
+                getAll() {
+                    return cookieStore.getAll();
+                },
+                setAll(cookiesToSet) {
+                    try {
+                        cookiesToSet.forEach(({ name, value, options }) =>
+                            cookieStore.set(name, value, options)
+                        );
+                    } catch {
+                        // The `setAll` method was called from a Server Component.
+                        // This can be ignored if you have middleware refreshing
+                        // user sessions.
+                    }
+                },
+            },
         }
     );
 
@@ -46,12 +60,26 @@ export async function chatWithGrievanceAI(history: Message[], currentInput: stri
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
         console.error("Unauthorized: User must be logged in to use AI.");
-        return null;
+        return {
+            message: "Unauthorized: Please log in again.",
+            suggestedReplies: [],
+            suretyScore: 0,
+            extractedData: {},
+            isComplete: false,
+            isError: true
+        } as any;
     }
 
     if (!process.env.GROQ_API_KEY) {
         console.error("GROQ_API_KEY is not set");
-        return null;
+        return {
+            message: "Server Error: API Key missing. Please check .env.local",
+            suggestedReplies: [],
+            suretyScore: 0,
+            extractedData: {},
+            isComplete: false,
+            isError: true
+        } as any;
     }
 
     try {
@@ -120,8 +148,26 @@ export async function chatWithGrievanceAI(history: Message[], currentInput: stri
         const text = completion.choices[0]?.message?.content || "";
         return JSON.parse(text) as ChatResponse;
 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Chat Action Failed:", error);
-        return null;
+
+        let errorMessage = "AI Connection Failed";
+
+        if (error?.response?.status === 401) {
+            errorMessage = "Invalid API Key. Please check your settings.";
+        } else if (error?.response?.status === 429) {
+            errorMessage = "AI is busy (Rate Limit). Please try again later.";
+        } else if (error?.message) {
+            errorMessage = `AI Error: ${error.message}`;
+        }
+
+        return {
+            message: errorMessage,
+            suggestedReplies: [],
+            suretyScore: 0,
+            extractedData: {},
+            isComplete: false,
+            isError: true // Flag for frontend
+        } as any;
     }
 }
