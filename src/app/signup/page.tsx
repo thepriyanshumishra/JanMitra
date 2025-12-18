@@ -18,10 +18,17 @@ export default function SignupPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState<"citizen" | "officer">("citizen");
+    const [acceptTerms, setAcceptTerms] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!acceptTerms) {
+            toast.error("You must accept the Terms & Conditions to continue.");
+            return;
+        }
+
         setIsLoading(true);
 
         try {
@@ -163,6 +170,27 @@ export default function SignupPage() {
                             </p>
                         </div>
                     )}
+
+                    <div className="flex items-start gap-2">
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            checked={acceptTerms}
+                            onChange={(e) => setAcceptTerms(e.target.checked)}
+                            className="mt-1 w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                        />
+                        <label htmlFor="terms" className="text-sm text-slate-600 dark:text-slate-400">
+                            I agree to the{" "}
+                            <Link href="/terms" className="text-blue-600 hover:underline">
+                                Terms & Conditions
+                            </Link>{" "}
+                            and{" "}
+                            <Link href="/privacy" className="text-blue-600 hover:underline">
+                                Privacy Policy
+                            </Link>
+                            .
+                        </label>
+                    </div>
 
                     <button
                         type="submit"

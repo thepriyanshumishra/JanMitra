@@ -36,40 +36,61 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
 
-    // Fetch user profile from database
-    const fetchProfile = async (userId: string) => {
-        console.log("🔍 Fetching profile for user ID:", userId);
+    // Fetch user profile from database with retry logic
+    const fetchProfile = async (userId: string, retryCount = 0): Promise<UserProfile | null> => {
+        console.log(`🔍 Fetching profile for user ID: ${userId} (Attempt ${retryCount + 1})`);
 
-        // Create a timeout promise
+        // Create a timeout promise (increased to 15s)
         const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("Profile fetch timed out")), 10000)
+            setTimeout(() => reject(new Error("Profile fetch timed out")), 15000)
         );
 
-        // Race the query against the timeout
-        const { data, error } = await Promise.race([
-            supabase
-                .from("profiles")
-                .select("*")
-                .eq("id", userId)
-                .single(),
-            timeoutPromise
-        ]) as any;
+        try {
+            // Race the query against the timeout
+            const { data, error } = await Promise.race([
+                supabase
+                    .from("profiles")
+                    .select("*")
+                    .eq("id", userId)
+                    .single(),
+                timeoutPromise
+            ]) as any;
 
-        if (error) {
-            console.error("❌ Error fetching profile:", error);
+            if (error) {
+                console.error("❌ Error fetching profile:", error);
+
+                // Retry once if it's a timeout or connection error
+                if (retryCount < 1) {
+                    console.log("🔄 Retrying profile fetch in 1s...");
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    return fetchProfile(userId, retryCount + 1);
+                }
+
+                return null;
+            }
+
+            // Check if user is active
+            if (data && data.is_active === false) {
+                console.warn("⛔ User is inactive/pending approval");
+                await supabase.auth.signOut();
+                toast.error("Account pending approval. Please contact admin.");
+                return null;
+            }
+
+            console.log("✅ Profile fetched successfully:", data);
+            return data as UserProfile;
+        } catch (err) {
+            console.error("❌ Exception in fetchProfile:", err);
+
+            // Retry on timeout exception too
+            if (retryCount < 1) {
+                console.log("🔄 Retrying profile fetch after exception...");
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                return fetchProfile(userId, retryCount + 1);
+            }
+
             return null;
         }
-
-        // Check if user is active
-        if (data && data.is_active === false) {
-            console.warn("⛔ User is inactive/pending approval");
-            await supabase.auth.signOut();
-            toast.error("Account pending approval. Please contact admin.");
-            return null;
-        }
-
-        console.log("✅ Profile fetched successfully:", data);
-        return data as UserProfile;
     };
 
     useEffect(() => {

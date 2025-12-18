@@ -18,20 +18,61 @@ const adminNavItems = [
     { icon: BarChart3, label: "Analytics", href: "/admin/analytics" },
 ];
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export function AdminSidebar({ className }: { className?: string }) {
     const pathname = usePathname();
     const { profile, signOut } = useAuth();
+    const { t } = useLanguage();
 
     return (
         <aside className={cn("hidden md:flex flex-col w-64 h-auto fixed left-6 top-1/2 -translate-y-1/2 z-40", className)}>
             {/* Floating Dock Container */}
-            <div className="flex flex-col bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-[2rem] shadow-2xl shadow-black/10 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-black/20">
+            <div className="flex flex-col bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-[2rem] shadow-2xl shadow-black/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-black/20">
 
                 {/* Traffic Lights (Mac Style) */}
-                <div className="px-6 pt-5 pb-2 flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500/80 shadow-sm" />
-                    <div className="w-3 h-3 rounded-full bg-amber-500/80 shadow-sm" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/80 shadow-sm" />
+                <div className="px-6 pt-5 pb-2 flex gap-2 group/lights">
+                    <div className="relative group/btn">
+                        <button
+                            onClick={signOut}
+                            className="w-3 h-3 rounded-full bg-red-500/80 shadow-sm hover:bg-red-600 transition-colors flex items-center justify-center group/red"
+                        >
+                            <div className="w-1.5 h-1.5 rounded-full bg-black/20 opacity-0 group-hover/lights:opacity-100 transition-opacity" />
+                        </button>
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-white text-[10px] rounded opacity-0 group-hover/btn:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                            {t("sign_out")}
+                        </div>
+                    </div>
+
+                    <div className="relative group/btn">
+                        <button
+                            onClick={() => window.location.href = '/'}
+                            className="w-3 h-3 rounded-full bg-amber-500/80 shadow-sm hover:bg-amber-600 transition-colors flex items-center justify-center"
+                        >
+                            <div className="w-1.5 h-1.5 rounded-full bg-black/20 opacity-0 group-hover/lights:opacity-100 transition-opacity" />
+                        </button>
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-white text-[10px] rounded opacity-0 group-hover/btn:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                            {t("nav_overview")}
+                        </div>
+                    </div>
+
+                    <div className="relative group/btn">
+                        <button
+                            onClick={() => {
+                                if (!document.fullscreenElement) {
+                                    document.documentElement.requestFullscreen();
+                                } else {
+                                    document.exitFullscreen();
+                                }
+                            }}
+                            className="w-3 h-3 rounded-full bg-green-500/80 shadow-sm hover:bg-green-600 transition-colors flex items-center justify-center"
+                        >
+                            <div className="w-1.5 h-1.5 rounded-full bg-black/20 opacity-0 group-hover/lights:opacity-100 transition-opacity" />
+                        </button>
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-white text-[10px] rounded opacity-0 group-hover/btn:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                            Fullscreen
+                        </div>
+                    </div>
                 </div>
 
                 {/* Logo Area */}
@@ -73,6 +114,12 @@ export function AdminSidebar({ className }: { className?: string }) {
                             </Link>
                         );
                     })}
+                    <Link href="/dashboard">
+                        <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white hover:scale-105 mt-4 border-t border-slate-200 dark:border-white/10 pt-4">
+                            <Home className="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-white" />
+                            <span>{t("nav_dashboard_link")}</span>
+                        </div>
+                    </Link>
                 </nav>
 
                 {/* Footer */}

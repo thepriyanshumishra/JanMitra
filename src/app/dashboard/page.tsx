@@ -12,8 +12,11 @@ import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/context/AuthContext";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function DashboardPage() {
     const { user } = useAuth();
+    const { t } = useLanguage();
     const [grievances, setGrievances] = useState<any[]>([]);
 
     useEffect(() => {
@@ -57,7 +60,7 @@ export default function DashboardPage() {
                     {/* Hero Stats (Bento Row 1) */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <BentoStat
-                            label="City Health"
+                            label={t("city_health")}
                             value="92%"
                             icon={Activity}
                             color="text-green-500"
@@ -65,7 +68,7 @@ export default function DashboardPage() {
                             border="border-green-500/20"
                         />
                         <BentoStat
-                            label="Active Alerts"
+                            label={t("active_alerts")}
                             value="3"
                             icon={ShieldAlert}
                             color="text-red-500"
@@ -73,7 +76,7 @@ export default function DashboardPage() {
                             border="border-red-500/20"
                         />
                         <BentoStat
-                            label="Avg Response"
+                            label={t("avg_response")}
                             value="14m"
                             icon={Zap}
                             color="text-yellow-500"
@@ -87,7 +90,7 @@ export default function DashboardPage() {
                         <div className="flex items-center justify-between">
                             <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                                 <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                                Live Intelligence Feed
+                                {t("live_feed")}
                             </h2>
                         </div>
                         <div className="space-y-3">
@@ -114,12 +117,12 @@ export default function DashboardPage() {
 
                     {/* Quick Actions / System Status */}
                     <GlassPanel className="p-6 bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 space-y-4">
-                        <h3 className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-sm">System Status</h3>
+                        <h3 className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-sm">{t("system_status")}</h3>
 
                         <div className="space-y-3">
-                            <SystemMetric label="AI Engine" status="Online" color="text-green-500" />
-                            <SystemMetric label="Polygon Mainnet" status="Connected" color="text-purple-500" />
-                            <SystemMetric label="Database" status="Healthy" color="text-blue-500" />
+                            <SystemMetric label={t("ai_engine")} status={t("online")} color="text-green-500" />
+                            <SystemMetric label={t("polygon_mainnet")} status={t("connected")} color="text-purple-500" />
+                            <SystemMetric label={t("database")} status={t("healthy")} color="text-blue-500" />
                         </div>
                     </GlassPanel>
                 </div>

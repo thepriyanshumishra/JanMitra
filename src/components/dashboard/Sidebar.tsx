@@ -30,13 +30,52 @@ export function Sidebar({ className }: { className?: string }) {
     return (
         <aside className={cn("hidden md:flex flex-col w-64 h-auto fixed left-6 top-1/2 -translate-y-1/2 z-40", className)}>
             {/* Floating Dock Container */}
-            <div className="flex flex-col bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-[2rem] shadow-2xl shadow-black/10 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-black/20">
+            <div className="flex flex-col bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-[2rem] shadow-2xl shadow-black/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-black/20">
 
                 {/* Traffic Lights (Mac Style) */}
-                <div className="px-6 pt-5 pb-2 flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500/80 shadow-sm" />
-                    <div className="w-3 h-3 rounded-full bg-amber-500/80 shadow-sm" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/80 shadow-sm" />
+                {/* Traffic Lights (Mac Style) */}
+                <div className="px-6 pt-5 pb-2 flex gap-2 group/lights">
+                    <div className="relative group/btn">
+                        <button
+                            onClick={signOut}
+                            className="w-3 h-3 rounded-full bg-red-500/80 shadow-sm hover:bg-red-600 transition-colors flex items-center justify-center group/red"
+                        >
+                            <div className="w-1.5 h-1.5 rounded-full bg-black/20 opacity-0 group-hover/lights:opacity-100 transition-opacity" />
+                        </button>
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-white text-[10px] rounded opacity-0 group-hover/btn:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                            Sign Out
+                        </div>
+                    </div>
+
+                    <div className="relative group/btn">
+                        <button
+                            onClick={() => window.location.href = '/'}
+                            className="w-3 h-3 rounded-full bg-amber-500/80 shadow-sm hover:bg-amber-600 transition-colors flex items-center justify-center"
+                        >
+                            <div className="w-1.5 h-1.5 rounded-full bg-black/20 opacity-0 group-hover/lights:opacity-100 transition-opacity" />
+                        </button>
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-white text-[10px] rounded opacity-0 group-hover/btn:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                            Go Home
+                        </div>
+                    </div>
+
+                    <div className="relative group/btn">
+                        <button
+                            onClick={() => {
+                                if (!document.fullscreenElement) {
+                                    document.documentElement.requestFullscreen();
+                                } else {
+                                    document.exitFullscreen();
+                                }
+                            }}
+                            className="w-3 h-3 rounded-full bg-green-500/80 shadow-sm hover:bg-green-600 transition-colors flex items-center justify-center"
+                        >
+                            <div className="w-1.5 h-1.5 rounded-full bg-black/20 opacity-0 group-hover/lights:opacity-100 transition-opacity" />
+                        </button>
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-white text-[10px] rounded opacity-0 group-hover/btn:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                            Fullscreen
+                        </div>
+                    </div>
                 </div>
 
                 {/* Logo Area */}
@@ -71,6 +110,14 @@ export function Sidebar({ className }: { className?: string }) {
                             </Link>
                         );
                     })}
+                    {role === "admin" && (
+                        <Link href="/admin">
+                            <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group text-sm font-medium bg-gradient-to-r from-red-500/10 to-orange-500/10 hover:from-red-500/20 hover:to-orange-500/20 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900/30 mb-2">
+                                <ShieldCheck className="w-4 h-4" />
+                                <span>{t("nav_admin")}</span>
+                            </div>
+                        </Link>
+                    )}
                 </nav>
 
 

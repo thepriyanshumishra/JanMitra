@@ -15,6 +15,7 @@ export default function LoginPage() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -111,7 +112,23 @@ export default function LoginPage() {
                             />
                         </div>
                     </div>
-
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <input
+                                type="checkbox"
+                                id="remember"
+                                checked={rememberMe}
+                                onChange={(e) => setRememberMe(e.target.checked)}
+                                className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                            />
+                            <label htmlFor="remember" className="text-sm text-slate-600 dark:text-slate-400">
+                                Remember me
+                            </label>
+                        </div>
+                        <a href="#" className="text-sm text-blue-600 hover:underline">
+                            Forgot password?
+                        </a>
+                    </div>
                     <button
                         type="submit"
                         disabled={isLoading}

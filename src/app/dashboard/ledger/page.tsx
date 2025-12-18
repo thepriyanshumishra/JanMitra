@@ -18,8 +18,11 @@ interface Transaction {
     method: "LogGrievance" | "UpdateStatus" | "Escalate";
 }
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function LedgerPage() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const { t } = useLanguage();
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -52,7 +55,7 @@ export default function LedgerPage() {
                     const newTx: Transaction = {
                         hash: event.log.transactionHash,
                         block: event.log.blockNumber,
-                        age: "Just now",
+                        age: t("just_now"),
                         from: id,
                         to: "GrievanceRegistry",
                         status: "Success",
@@ -74,18 +77,18 @@ export default function LedgerPage() {
             const contract = new ethers.Contract(CONTRACT_ADDRESS, GRIEVANCE_REGISTRY_ABI, provider);
             contract.removeAllListeners();
         };
-    }, []);
+    }, [t]);
 
     return (
         <div className="space-y-8">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Public Accountability Ledger</h1>
-                    <p className="text-slate-500 dark:text-slate-400">Immutable record of all governance actions on Polygon PoS.</p>
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{t("ledger_title")}</h1>
+                    <p className="text-slate-500 dark:text-slate-400">{t("ledger_subtitle")}</p>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
                     <ShieldCheck className="w-5 h-5" />
-                    <span className="font-bold">Polygon Mainnet</span>
+                    <span className="font-bold">{t("polygon_mainnet")}</span>
                 </div>
             </div>
 
@@ -94,13 +97,13 @@ export default function LedgerPage() {
                     <table className="w-full text-left text-sm">
                         <thead className="bg-white/50 dark:bg-white/5 border-b border-white/20 dark:border-white/5 text-slate-500 dark:text-slate-400 font-medium">
                             <tr>
-                                <th className="px-6 py-4">Tx Hash</th>
-                                <th className="px-6 py-4">Method</th>
-                                <th className="px-6 py-4">Block</th>
-                                <th className="px-6 py-4">Age</th>
-                                <th className="px-6 py-4">From</th>
-                                <th className="px-6 py-4">To</th>
-                                <th className="px-6 py-4">Status</th>
+                                <th className="px-6 py-4">{t("tx_hash")}</th>
+                                <th className="px-6 py-4">{t("method")}</th>
+                                <th className="px-6 py-4">{t("block")}</th>
+                                <th className="px-6 py-4">{t("age")}</th>
+                                <th className="px-6 py-4">{t("from")}</th>
+                                <th className="px-6 py-4">{t("to")}</th>
+                                <th className="px-6 py-4">{t("status")}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/20 dark:divide-white/5">

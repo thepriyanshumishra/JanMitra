@@ -15,7 +15,10 @@ import { X, Loader2 } from "lucide-react";
 import { SubmissionSuccessModal } from "@/components/chat/SubmissionSuccessModal";
 import { LocationManager } from "@/components/chat/LocationManager";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function SubmitGrievancePage() {
+    const { t } = useLanguage();
     const [messages, setMessages] = useState<Message[]>([
         { role: "assistant", content: "Hello! I'm Jan-Mitra. I can help you file a grievance quickly. What seems to be the problem today?" }
     ]);
@@ -144,7 +147,7 @@ export default function SubmitGrievancePage() {
                 <div className="w-full max-w-3xl flex flex-col items-center space-y-8">
                     {/* Hero Text */}
                     <h1 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white">
-                        What can I help with?
+                        {t("submit_hero_title")}
                     </h1>
 
                     {/* ChatGPT-style Input Container */}
@@ -174,7 +177,7 @@ export default function SubmitGrievancePage() {
                             onChange={(e) => setInputValue(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && handleSendMessage(inputValue)}
                             className="w-full bg-transparent border-none focus:ring-0 outline-none text-lg text-slate-800 dark:text-slate-200 placeholder:text-slate-400 px-2"
-                            placeholder={isListening ? "Listening..." : "Ask anything"}
+                            placeholder={isListening ? t("listening") : t("ask_anything")}
                             autoFocus
                         />
 
@@ -187,22 +190,22 @@ export default function SubmitGrievancePage() {
                                     className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 transition-colors border border-slate-100 dark:border-slate-600/50"
                                 >
                                     <Camera className="w-3.5 h-3.5" />
-                                    Upload
+                                    {t("upload_btn")}
                                 </button>
                                 <button
                                     onClick={() => setShowLocationManager(true)}
                                     className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 transition-colors border border-slate-100 dark:border-slate-600/50"
                                 >
                                     <MapPin className="w-3.5 h-3.5" />
-                                    Location
+                                    {t("location_btn")}
                                 </button>
                                 <button className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 transition-colors border border-slate-100 dark:border-slate-600/50">
                                     <QrCode className="w-3.5 h-3.5" />
-                                    Scan
+                                    {t("scan_btn")}
                                 </button>
                                 <button className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 transition-colors border border-slate-100 dark:border-slate-600/50">
                                     <FileText className="w-3.5 h-3.5" />
-                                    Track
+                                    {t("track_btn")}
                                 </button>
                             </div>
 
