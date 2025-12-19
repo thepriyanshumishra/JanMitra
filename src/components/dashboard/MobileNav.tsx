@@ -5,19 +5,26 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { GlassPanel } from "@/components/ui/GlassPanel";
+import { NotificationBell } from "@/components/ui/NotificationBell";
 
 export function MobileNav() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
-            {/* Trigger Button */}
-            <button
-                onClick={() => setIsOpen(true)}
-                className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-white/20 backdrop-blur-md border border-white/20 text-slate-900 dark:text-white shadow-lg"
-            >
-                <Menu className="w-6 h-6" />
-            </button>
+            {/* Top Bar (Mobile) */}
+            <div className="md:hidden fixed top-4 left-4 right-4 z-50 flex items-center justify-between pointer-events-none">
+                <button
+                    onClick={() => setIsOpen(true)}
+                    className="p-2 rounded-lg bg-white/20 backdrop-blur-md border border-white/20 text-slate-900 dark:text-white shadow-lg pointer-events-auto"
+                >
+                    <Menu className="w-6 h-6" />
+                </button>
+
+                <div className="pointer-events-auto">
+                    <NotificationBell />
+                </div>
+            </div>
 
             {/* Drawer Overlay */}
             <AnimatePresence>

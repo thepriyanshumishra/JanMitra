@@ -3,6 +3,8 @@
 import * as React from "react";
 import { Check, ChevronsUpDown, Search, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
     Command,
@@ -23,6 +25,7 @@ import { languages } from "@/lib/translations";
 export function LanguageSelector() {
     const [open, setOpen] = React.useState(false);
     const { language, setLanguage } = useLanguage();
+    const pathname = usePathname();
 
     const selectedLanguage = languages.find((l) => l.id === language);
 
@@ -58,13 +61,15 @@ export function LanguageSelector() {
                                         setLanguage(lang.id);
                                         setOpen(false);
 
-                                        // Google Translate Logic
-                                        const targetLang = lang.id;
-                                        document.cookie = `googtrans=/en/${targetLang}; path=/; domain=${window.location.hostname}`;
-                                        document.cookie = `googtrans=/en/${targetLang}; path=/;`; // Fallback
-
-                                        // Force reload to apply Google Translate
-                                        window.location.reload();
+                                        if (pathname === "/") {
+                                            // Google Translate Logic (Homepage Only)
+                                            const targetLang = lang.id;
+                                            document.cookie = `googtrans=/en/${targetLang}; path=/; domain=${window.location.hostname}`;
+                                            document.cookie = `googtrans=/en/${targetLang}; path=/;`; // Fallback
+                                            window.location.reload();
+                                        } else {
+                                            toast.info(`Language changed to ${lang.name} (Dummy on Dashboard)`);
+                                        }
                                     }}
                                     className="cursor-pointer aria-selected:bg-blue-50 dark:aria-selected:bg-blue-900/20"
                                 >

@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutDashboard, PenTool, BarChart3, Settings, LogOut, ShieldCheck } from "lucide-react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { LayoutDashboard, PenTool, BarChart3, Settings, LogOut, ShieldCheck, FileText, Search, User } from "lucide-react";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/Logo";
@@ -13,17 +13,30 @@ import { useRole } from "@/hooks/useRole";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { useLanguage } from "@/context/LanguageContext";
 
+import { NotificationBell } from "@/components/ui/NotificationBell";
+
 export function Sidebar({ className }: { className?: string }) {
     const { user, signOut } = useAuth();
     const { role } = useRole();
     const { t } = useLanguage();
     const pathname = usePathname();
 
+    const searchParams = useSearchParams();
+    const currentView = searchParams.get('view');
+
     const navItems = [
-        { name: t("nav_overview"), href: "/dashboard", icon: LayoutDashboard },
+        {
+            name: t("nav_overview"),
+            href: role === "admin" ? "/dashboard/admin" : "/dashboard/citizen",
+            icon: LayoutDashboard
+        },
         { name: t("nav_submit"), href: "/dashboard/submit", icon: PenTool },
-        { name: t("nav_analytics"), href: "/dashboard/analytics", icon: BarChart3 },
+        { name: "Track Complaint", href: "/dashboard/track", icon: Search },
+        { name: "My Drafts", href: "/dashboard/drafts", icon: FileText },
+        { name: "My Submissions", href: "/dashboard/submissions", icon: ShieldCheck },
+        { name: "My Profile", href: "/dashboard/profile", icon: User },
         { name: t("nav_ledger"), href: "/dashboard/ledger", icon: ShieldCheck },
+        { name: t("nav_analytics"), href: "/dashboard/analytics", icon: BarChart3 },
         { name: t("nav_settings"), href: "/dashboard/settings", icon: Settings },
     ];
 
@@ -32,7 +45,6 @@ export function Sidebar({ className }: { className?: string }) {
             {/* Floating Dock Container */}
             <div className="flex flex-col bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-[2rem] shadow-2xl shadow-black/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-black/20">
 
-                {/* Traffic Lights (Mac Style) */}
                 {/* Traffic Lights (Mac Style) */}
                 <div className="px-6 pt-5 pb-2 flex gap-2 group/lights">
                     <div className="relative group/btn">
@@ -131,6 +143,7 @@ export function Sidebar({ className }: { className?: string }) {
                         <div className="flex-1">
                             <LanguageSelector />
                         </div>
+                        <NotificationBell />
                         <ThemeToggle />
                     </div>
 

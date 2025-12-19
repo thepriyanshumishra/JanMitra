@@ -25,6 +25,7 @@ interface AuthContextType {
     isLoading: boolean;
     signInWithGoogle: () => Promise<void>;
     signOut: () => Promise<void>;
+    fetchProfile: (userId: string) => Promise<UserProfile | null>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -147,7 +148,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, profile, session, isLoading, signInWithGoogle, signOut }}>
+        <AuthContext.Provider value={{ user, profile, session, isLoading, signInWithGoogle, signOut, fetchProfile }}>
             {children}
         </AuthContext.Provider>
     );

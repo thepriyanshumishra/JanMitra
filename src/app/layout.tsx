@@ -6,6 +6,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/AuthContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { GoogleTranslate } from "@/components/GoogleTranslate";
+import { BroadcastBanner } from "@/components/ui/BroadcastBanner";
+import { NotificationProvider } from "@/context/NotificationContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -80,9 +82,11 @@ export default function RootLayout({
         >
           <LanguageProvider>
             <AuthProvider>
-              <GoogleTranslate />
-              {children}
-              <Toaster />
+              <NotificationProvider>
+                <BroadcastBanner />
+                {children}
+                <Toaster />
+              </NotificationProvider>
             </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>

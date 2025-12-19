@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: '*',
             allow: '/',
-            disallow: ['/admin/', '/api/', '/dashboard/settings'],
+            disallow: ['/dashboard/admin/', '/dashboard/officer/'],
         },
         sitemap: 'https://jan-mitra.vercel.app/sitemap.xml',
     }

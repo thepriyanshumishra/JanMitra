@@ -1,25 +1,20 @@
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: 'Jan-Mitra | AI Governance Layer',
-        short_name: 'Jan-Mitra',
-        description: 'Intelligence & Accountability Layer for Public Grievances',
+        name: 'JAN-MITRA | AI Governance Layer',
+        short_name: 'JAN-MITRA',
+        description: 'Next-Gen Intelligence & Accountability Layer for Public Grievances.',
         start_url: '/',
         display: 'standalone',
         background_color: '#0f172a',
-        theme_color: '#0f172a',
+        theme_color: '#7c3aed',
         icons: [
             {
-                src: '/icon',
+                src: '/favicon.ico',
                 sizes: 'any',
                 type: 'image/x-icon',
             },
-            {
-                src: '/apple-icon',
-                sizes: 'any',
-                type: 'image/png',
-            },
         ],
-    };
+    }
 }

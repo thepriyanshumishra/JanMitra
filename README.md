@@ -56,6 +56,18 @@ Accessible to every Indian citizen.
 -   **Native Script**: Displays languages in their native script (e.g., "हिंदी", "தமிழ்").
 -   **Real-time Translation**: Integrated Google Translate engine for dynamic content.
 
+### 🔔 Real-Time Notifications & Email
+Stay informed at every step.
+-   **Instant Alerts**: In-app notifications for status changes and assignments.
+-   **Email Updates**: Automated emails sent to citizens when their grievance is resolved.
+-   **Smart Polling**: Auto-refreshing notification bell for real-time awareness.
+
+### 📊 Analytics & Insights
+Data-driven governance for Admins.
+-   **Visual Dashboards**: Interactive charts showing grievance trends and department performance.
+-   **Heatmaps**: Identify problem areas (e.g., "Pothole Clusters").
+-   **Resolution Metrics**: Track SLA compliance and officer efficiency.
+
 ### ⛓️ Blockchain Trust Layer (Polygon)
 Immutable accountability for every grievance.
 -   **Public Ledger**: Every grievance is hashed and recorded on the Polygon PoS network.
@@ -76,9 +88,35 @@ Immutable accountability for every grievance.
 
 ---
 
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    User[Citizen/User] -->|Web Interface| NextJS[Next.js App]
+    NextJS -->|Auth & Data| Supabase[Supabase (PostgreSQL)]
+    NextJS -->|AI Analysis| Gemini[Google Gemini AI]
+    NextJS -->|Transparency| Polygon[Polygon Blockchain]
+    
+    subgraph "Backend Services"
+        Supabase
+        Gemini
+        Polygon
+    end
+    
+    subgraph "Frontend Layer"
+        NextJS
+        Tailwind[Tailwind CSS]
+        Framer[Framer Motion]
+    end
+    
+    Supabase -->|Real-time| NextJS
+    Gemini -->|Categorization| NextJS
+    NextJS -->|Hash Storage| Polygon
+```
+
 ## 🛠️ Tech Stack
 
--   **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+-   **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
 -   **AI Engine**: [Groq SDK](https://groq.com/) (Llama 3.3 70B)
 -   **Database & Auth**: [Supabase](https://supabase.com/) (PostgreSQL + RLS)
 -   **Blockchain**: [Polygon PoS](https://polygon.technology/) (Amoy Testnet) + [Ethers.js](https://docs.ethers.org/)

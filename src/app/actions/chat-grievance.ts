@@ -31,7 +31,12 @@ export interface ChatResponse {
     isError?: boolean;
 }
 
-export async function chatWithGrievanceAI(history: Message[], currentInput: string, imageBase64?: string | null): Promise<ChatResponse | null> {
+export async function chatWithGrievanceAI(
+    history: Message[],
+    currentInput: string,
+    currentContext: Partial<ChatResponse['extractedData']> = {},
+    imageBase64?: string | null
+): Promise<ChatResponse | null> {
     const cookieStore = await cookies();
 
     const supabase = createServerClient(
@@ -84,9 +89,18 @@ export async function chatWithGrievanceAI(history: Message[], currentInput: stri
     }
 
     try {
+        // Construct Known Data String
+        const knownDataString = Object.entries(currentContext)
+            .filter(([_, value]) => value && value !== "null")
+            .map(([key, value]) => `- ${key}: "${value}"`)
+            .join("\n");
+
         const systemPrompt = `
       You are "Jan-Mitra", a compassionate and efficient AI civic official. 
       Your goal is to interview a citizen to gather complete details about a grievance so it can be resolved quickly.
+
+      **CURRENT KNOWN INFORMATION (DO NOT ASK FOR THESE):**
+      ${knownDataString || "(None yet)"}
 
       **Evidence Handling:**
       - If the user mentions having "proof", "photo", "video", or "evidence", ask them to upload it.

@@ -1,38 +1,25 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://jan-mitra.vercel.app' // Replace with actual domain
-
     return [
         {
-            url: baseUrl,
+            url: 'https://jan-mitra.vercel.app',
             lastModified: new Date(),
-            changeFrequency: 'daily',
+            changeFrequency: 'yearly',
             priority: 1,
         },
         {
-            url: `${baseUrl}/about`,
+            url: 'https://jan-mitra.vercel.app/auth/login',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         {
-            url: `${baseUrl}/login`,
+            url: 'https://jan-mitra.vercel.app/auth/signup',
             lastModified: new Date(),
-            changeFrequency: 'yearly',
-            priority: 0.5,
+            changeFrequency: 'monthly',
+            priority: 0.8,
         },
-        {
-            url: `${baseUrl}/signup`,
-            lastModified: new Date(),
-            changeFrequency: 'yearly',
-            priority: 0.5,
-        },
-        {
-            url: `${baseUrl}/dashboard`,
-            lastModified: new Date(),
-            changeFrequency: 'always',
-            priority: 0.9,
-        },
+        // Add more public routes here
     ]
 }

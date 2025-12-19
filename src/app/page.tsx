@@ -36,13 +36,13 @@ export default function Home() {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
           <Link href="/dashboard" className="w-full sm:w-auto">
-            <GlassPanel className="px-8 py-4 flex items-center justify-center gap-2 group bg-blue-600/90 hover:bg-blue-600 text-white border-transparent shadow-lg hover:shadow-blue-500/30">
+            <GlassPanel className="px-8 py-4 flex items-center justify-center gap-2 group bg-blue-600/90 hover:bg-blue-600 text-white border-transparent shadow-lg hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300">
               <span className="font-semibold">{t("cta_start")}</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </GlassPanel>
           </Link>
           <Link href="/about" className="w-full sm:w-auto">
-            <GlassPanel className="px-8 py-4 flex items-center justify-center gap-2 bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 hover:bg-white/60 dark:hover:bg-white/10 text-slate-700 dark:text-blue-200 shadow-sm">
+            <GlassPanel className="px-8 py-4 flex items-center justify-center gap-2 bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 hover:bg-white/60 dark:hover:bg-white/10 text-slate-700 dark:text-blue-200 shadow-sm hover:scale-105 transition-all duration-300">
               <span className="font-semibold">{t("cta_learn")}</span>
             </GlassPanel>
           </Link>
@@ -54,19 +54,19 @@ export default function Home() {
             <p className="text-slate-600 dark:text-slate-400">{t("why_desc")}</p>
           </div>
 
-          <GlassPanel className="p-6 bg-red-50/50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20">
+          <GlassPanel className="p-6 bg-red-50/50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <div className="text-4xl font-black text-red-600 dark:text-red-400 mb-2">{t("stat_complaints_val")}</div>
             <div className="font-bold text-slate-900 dark:text-white mb-2">{t("stat_complaints_label")}</div>
             <p className="text-xs text-slate-600 dark:text-slate-400">{t("stat_complaints_desc")}</p>
           </GlassPanel>
 
-          <GlassPanel className="p-6 bg-orange-50/50 dark:bg-orange-900/10 border-orange-100 dark:border-orange-900/20">
+          <GlassPanel className="p-6 bg-orange-50/50 dark:bg-orange-900/10 border-orange-100 dark:border-orange-900/20 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <div className="text-4xl font-black text-orange-600 dark:text-orange-400 mb-2">{t("stat_deadlines_val")}</div>
             <div className="font-bold text-slate-900 dark:text-white mb-2">{t("stat_deadlines_label")}</div>
             <p className="text-xs text-slate-600 dark:text-slate-400">{t("stat_deadlines_desc")}</p>
           </GlassPanel>
 
-          <GlassPanel className="p-6 bg-slate-50/50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-700">
+          <GlassPanel className="p-6 bg-slate-50/50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <div className="text-4xl font-black text-slate-900 dark:text-white mb-2">{t("stat_pending_val")}</div>
             <div className="font-bold text-slate-900 dark:text-white mb-2">{t("stat_pending_label")}</div>
             <p className="text-xs text-slate-600 dark:text-slate-400">{t("stat_pending_desc")}</p>
@@ -77,8 +77,8 @@ export default function Home() {
       {/* Feature Grid */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <GlassPanel className="p-8 space-y-4 bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 shadow-md hover:shadow-xl transition-all hover:-translate-y-1">
-            <div className="h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-500/20 flex items-center justify-center">
+          <GlassPanel className="p-8 space-y-4 bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 duration-300 group">
+            <div className="h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <Zap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             </div>
             <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{t("feat_ai_title")}</h3>
@@ -87,8 +87,8 @@ export default function Home() {
             </p>
           </GlassPanel>
 
-          <GlassPanel className="p-8 space-y-4 bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 shadow-md hover:shadow-xl transition-all hover:-translate-y-1">
-            <div className="h-12 w-12 rounded-full bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center">
+          <GlassPanel className="p-8 space-y-4 bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 duration-300 group">
+            <div className="h-12 w-12 rounded-full bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <ShieldCheck className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             </div>
             <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{t("feat_blockchain_title")}</h3>
@@ -97,8 +97,8 @@ export default function Home() {
             </p>
           </GlassPanel>
 
-          <GlassPanel className="p-8 space-y-4 bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 shadow-md hover:shadow-xl transition-all hover:-translate-y-1">
-            <div className="h-12 w-12 rounded-full bg-pink-100 dark:bg-pink-500/20 flex items-center justify-center">
+          <GlassPanel className="p-8 space-y-4 bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 duration-300 group">
+            <div className="h-12 w-12 rounded-full bg-pink-100 dark:bg-pink-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <div className="text-xl font-bold text-pink-600 dark:text-pink-400">SLA</div>
             </div>
             <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{t("feat_sla_title")}</h3>
@@ -121,7 +121,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             {/* Connecting Line (Desktop) */}
-            <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500/0 via-blue-500/50 to-blue-500/0" />
+            <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500/0 via-blue-500/50 to-blue-500/0">
+              <div className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-blue-400 to-transparent animate-shimmer" />
+            </div>
 
             <StepCard
               number="01"
@@ -162,9 +164,9 @@ export default function Home() {
 
 function StepCard({ number, title, desc, icon: Icon }: any) {
   return (
-    <div className="relative flex flex-col items-center text-center space-y-4">
-      <div className="w-24 h-24 rounded-full bg-white dark:bg-slate-900 border-4 border-blue-100 dark:border-blue-900 flex items-center justify-center shadow-xl z-10">
-        <Icon className="w-10 h-10 text-blue-600 dark:text-blue-400" />
+    <div className="relative flex flex-col items-center text-center space-y-4 group">
+      <div className="w-24 h-24 rounded-full bg-white dark:bg-slate-900 border-4 border-blue-100 dark:border-blue-900 flex items-center justify-center shadow-xl z-10 group-hover:scale-110 transition-transform duration-300 group-hover:border-blue-200 dark:group-hover:border-blue-800">
+        <Icon className="w-10 h-10 text-blue-600 dark:text-blue-400 group-hover:text-blue-500 transition-colors" />
       </div>
       <div className="space-y-2">
         <span className="text-sm font-bold text-blue-600 dark:text-blue-400 tracking-wider">STEP {number}</span>
@@ -179,7 +181,7 @@ function StepCard({ number, title, desc, icon: Icon }: any) {
 
 function StatCard({ value, label }: any) {
   return (
-    <GlassPanel className="p-6 text-center bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10">
+    <GlassPanel className="p-6 text-center bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 hover:scale-105 transition-transform duration-300">
       <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2">
         {value}
       </div>
